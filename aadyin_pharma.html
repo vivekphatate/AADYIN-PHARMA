@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AADYIN PHARMA – Elite Performance</title>
+<!-- Modern Premium Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===== CORE RESET & VARIABLES ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+:root {
+  --bg-main: #020d1a;
+  --bg-deep: #010810;
+  --bg-card: rgba(0, 208, 132, 0.03);
+  --bg-card-hover: rgba(0, 208, 132, 0.07);
+  --border-light: rgba(0, 208, 132, 0.12);
+  --border-glow: rgba(0, 208, 132, 0.4);
+  
+  /* Neon Green + Dark Navy Theme */
+  --accent-1: #00D084;
+  --accent-2: #00FF9F;
+  --accent-dim: #007A4E;
+  --navy-1: #021B3A;
+  --navy-2: #030F22;
+  --text-main: #FFFFFF;
+  --text-muted: #7A9BB5;
+  --glow-green: rgba(0, 208, 132, 0.35);
+  --glow-green-soft: rgba(0, 208, 132, 0.12);
+  
+  --font-head: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* ===== CINEMATIC BACKGROUND ===== */
+.mesh-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background: radial-gradient(ellipse 120% 80% at 50% -10%, #021B3A 0%, #010D1C 45%, #020912 100%);
+}
+
+/* Deep layered cinematic gradients */
+.mesh-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 15% 20%, rgba(0,208,132,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 85% 75%, rgba(0,208,132,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(2,27,58,0.9) 0%, transparent 70%);
+}
+
+/* Grid lines overlay for sci-fi vibe */
+.mesh-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,208,132,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,208,132,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 20%, transparent 80%);
+}
+
+.mesh-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.5;
+  animation: floatOrb 25s infinite ease-in-out alternate;
+}
+/* Green primary orb - top left */
+.orb-1 { 
+  width: 600px; height: 600px; 
+  background: radial-gradient(circle, rgba(0,208,132,0.6) 0%, rgba(0,208,132,0.1) 60%, transparent 100%); 
+  top: -15%; left: -12%; 
+  filter: blur(100px);
+  opacity: 0.45;
+}
+/* Deep navy orb - bottom right */
+.orb-2 { 
+  width: 700px; height: 700px; 
+  background: radial-gradient(circle, rgba(0,100,200,0.15) 0%, rgba(2,27,58,0.4) 60%, transparent 100%); 
+  bottom: -20%; right: -10%; 
+  animation-delay: -8s; 
+  opacity: 0.6;
+  filter: blur(150px);
+}
+/* Subtle green accent - center */
+.orb-3 { 
+  width: 400px; height: 400px; 
+  background: radial-gradient(circle, rgba(0,255,159,0.12) 0%, transparent 70%); 
+  top: 45%; left: 55%; 
+  animation-delay: -14s; 
+  opacity: 0.5;
+  filter: blur(90px);
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.05); }
+  66% { transform: translate(-20px, 50px) scale(0.97); }
+  100% { transform: translate(60px, 20px) scale(1.1); }
+}
+
+/* ===== FLOATING PARTICLES ===== */
+.particles-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--accent-1);
+  animation: particleFloat linear infinite;
+  opacity: 0;
+}
+
+@keyframes particleFloat {
+  0% { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-10vh) translateX(40px) scale(1); opacity: 0; }
+}
+
+/* ===== NOISE OVERLAY ===== */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ===== CUSTOM SCROLLBAR ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: rgba(0,208,132,0.3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-1); }
+
+/* ===== REUSABLE COMPONENTS ===== */
+.gradient-text {
+  background: linear-gradient(135deg, #FFFFFF 0%, rgba(0,208,132,0.8) 60%, rgba(255,255,255,0.5) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.accent-text {
+  background: linear-gradient(135deg, var(--accent-2) 0%, var(--accent-1) 60%, rgba(0,208,132,0.7) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 20px rgba(0,208,132,0.4));
+}
+.glass-panel {
+  background: linear-gradient(135deg, rgba(0,208,132,0.05) 0%, rgba(2,15,35,0.6) 100%);
+  backdrop-filter: blur(24px) saturate(1.3);
+  -webkit-backdrop-filter: blur(24px) saturate(1.3);
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  box-shadow:
+    0 4px 32px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(0,208,132,0.1),
+    inset 0 -1px 0 rgba(0,0,0,0.3);
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+  color: #000;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 8px 30px rgba(0,208,132,0.3), 0 0 0 0 rgba(0,208,132,0);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: all 0.6s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0,208,132,0.45), 0 0 80px rgba(0,208,132,0.15);
+}
+.btn-primary:hover::before { left: 100%; }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 32px;
+  background: rgba(0,208,132,0.05);
+  border: 1px solid rgba(0,208,132,0.25);
+  color: var(--accent-1);
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  box-shadow: 0 0 20px rgba(0,208,132,0.05);
+}
+.btn-secondary:hover {
+  background: rgba(0,208,132,0.12);
+  border-color: rgba(0,208,132,0.5);
+  color: var(--accent-2);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0,208,132,0.2);
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  background: rgba(0, 208, 132, 0.08);
+  border: 1px solid rgba(0, 208, 132, 0.25);
+  border-radius: 100px;
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent-1);
+  margin-bottom: 24px;
+  box-shadow: 0 0 20px rgba(0,208,132,0.1);
+}
+
+/* ===== NAVBAR ===== */
+nav {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.5s ease;
+  border-radius: 100px;
+}
+nav.scrolled {
+  background: rgba(2, 9, 20, 0.75);
+  backdrop-filter: blur(30px) saturate(1.5);
+  -webkit-backdrop-filter: blur(30px) saturate(1.5);
+  border: 1px solid rgba(0,208,132,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(0,208,132,0.05);
+  width: 95%;
+  top: 16px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.logo-icon {
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 0 25px rgba(0,208,132,0.5), 0 0 50px rgba(0,208,132,0.15);
+}
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-text span:first-child {
+  font-family: var(--font-head);
+  font-weight: 900;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--text-main);
+}
+.logo-text span:last-child {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--accent-1);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+nav ul { display: flex; gap: 8px; list-style: none; }
+nav ul li a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+nav ul li a:hover {
+  color: var(--accent-1);
+  background: rgba(0,208,132,0.08);
+  box-shadow: 0 0 15px rgba(0,208,132,0.1);
+}
+
+.nav-cta {
+  padding: 12px 24px !important;
+  background: var(--accent-1) !important;
+  color: #000 !important;
+  font-weight: 700 !important;
+  box-shadow: 0 0 20px rgba(0,208,132,0.3) !important;
+}
+.nav-cta:hover {
+  background: var(--accent-2) !important;
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(0,208,132,0.5) !important;
+}
+
+/* ===== MOBILE MENU TOGGLE ===== */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 6px;
+  z-index: 1001;
+}
+
+.menu-toggle .bar {
+  width: 25px;
+  height: 3px;
+  background-color: var(--accent-1);
+  transition: all 0.3s ease;
+  border-radius: 3px;
+  box-shadow: 0 0 6px rgba(0,208,132,0.4);
+}
+
+.menu-toggle.is-active .bar:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+.menu-toggle.is-active .bar:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.is-active .bar:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* ===== HERO ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 120px 5%;
+  text-align: center;
+  background: 
+    linear-gradient(to bottom, rgba(2, 13, 26, 0.4) 0%, rgba(1, 8, 16, 0.95) 100%),
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0, 208, 132, 0.15) 0%, transparent 70%),
+    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+}
+/* Horizontal scan line effect */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,208,132,0.006) 3px,
+    rgba(0,208,132,0.006) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-content {
+  max-width: 1000px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(60px, 9vw, 130px);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  text-shadow: 0 0 80px rgba(0,208,132,0.15);
+}
+.hero p {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--text-muted);
+  max-width: 600px;
+  margin-bottom: 48px;
+  font-weight: 400;
+  line-height: 1.8;
+}
+/* ===== HERO BOTTOM BAR ===== */
+.hero-bottom-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 5%;
+  background: rgba(2, 13, 26, 0.6);
+  backdrop-filter: blur(30px) saturate(1.4);
+  -webkit-backdrop-filter: blur(30px) saturate(1.4);
+  border-top: 1px solid rgba(0,208,132,0.12);
+  z-index: 10;
+  box-shadow: 0 -10px 40px rgba(0,0,0,0.4);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-align: left;
+}
+
+.stat-item .num {
+  font-family: var(--font-head);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent-1);
+  line-height: 1;
+  text-shadow: 0 0 20px rgba(0,208,132,0.4);
+}
+
+.stat-item .label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  max-width: 90px;
+}
+
+.stat-item.separator {
+  width: 1px;
+  height: 40px;
+  background: rgba(0,208,132,0.15);
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== FEATURES (BENTO GRID) ===== */
+.features {
+  padding: 140px 5%;
+  position: relative;
+  background: linear-gradient(180deg, rgba(1, 8, 16, 1) 0%, rgba(2, 13, 26, 0.95) 100%);
+  overflow: hidden;
+}
+.features::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(0,208,132,0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0,208,132,0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  mask-image: radial-gradient(ellipse 80% 100% at 50% 50%, black 10%, transparent 80%);
+  z-index: 0;
+  pointer-events: none;
+}
+.section-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+.section-header h2 {
+  font-family: var(--font-head);
+  font-size: clamp(40px, 6vw, 64px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.section-header p {
+  color: var(--text-muted);
+  font-size: 18px;
+  margin-top: 16px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.feature-card {
+  padding: 48px;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+/* Holographic shimmer line on feature cards */
+.feature-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-1), transparent);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.feature-card:hover::after { opacity: 1; }
+.feature-card:hover {
+  background: rgba(0,208,132,0.06);
+  border-color: rgba(0,208,132,0.3);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 60px rgba(0,208,132,0.08), inset 0 0 0 1px rgba(0,208,132,0.08);
+}
+.feature-icon {
+  width: 64px; height: 64px;
+  background: rgba(0,208,132,0.08);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(0,208,132,0.2);
+  box-shadow: 0 0 20px rgba(0,208,132,0.1);
+}
+.feature-card h3 {
+  font-family: var(--font-head);
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text-main);
+}
+.feature-card p {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ===== PRODUCTS (GLASS CARDS) ===== */
+.products {
+  padding: 140px 5%;
+  position: relative;
+  background: radial-gradient(circle at 50% 50%, #031B3A 0%, #010409 100%);
+  overflow: hidden;
+}
+.products::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* Energy Streaks */
+  background: 
+    linear-gradient(45deg, transparent 48%, rgba(0, 208, 132, 0.1) 49%, rgba(0, 255, 159, 0.1) 50%, rgba(0, 208, 132, 0.1) 51%, transparent 52%);
+  background-size: 200% 200%;
+  animation: energyStreaks 20s linear infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+.products::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(0, 208, 132, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(0, 255, 255, 0.08) 0%, transparent 40%),
+    url('https://www.transparenttextures.com/patterns/hixs-evolution.png');
+  opacity: 0.1;
+  z-index: 1;
+  pointer-events: none;
+}
+@keyframes energyStreaks {
+  0% { background-position: 200% 200%; }
+  100% { background-position: -200% -200%; }
+}
+/* Edge lighting for product cards */
+.product-card {
+  border: 1px solid rgba(0, 208, 132, 0.15);
+  box-shadow: 0 0 20px rgba(0, 208, 132, 0.05);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.product-card:hover {
+  border-color: var(--accent-1);
+  box-shadow: 0 0 40px rgba(0, 208, 132, 0.2), 0 0 80px rgba(0, 208, 132, 0.1);
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.product-card {
+  padding: 12px;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 184, 0, 0.06), transparent 40%);
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.product-card:hover::before { opacity: 1; }
+.product-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(255, 184, 0, 0.4);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+}
+
+.product-img-wrap {
+  height: 320px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 16px;
+  padding: 30px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.product-img-wrap img {
+  max-height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.raw-catalog-img {
+  mix-blend-mode: multiply;
+  filter: brightness(1.1) contrast(1.2) !important;
+}
+.product-card:hover .product-img-wrap img {
+  transform: scale(1.08) translateY(-10px);
+}
+.product-tag {
+  position: absolute;
+  top: 16px; right: 16px;
+  background: var(--text-main);
+  color: #000;
+  font-family: var(--font-head);
+  font-weight: 800;
+  font-size: 10px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  letter-spacing: 1px;
+}
+
+.product-body {
+  padding: 32px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  z-index: 1;
+}
+.product-sub {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent-1);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.product-body h3 {
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.product-body p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  flex-grow: 1;
+}
+.product-benefits {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;
+}
+.benefit-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  color: var(--text-muted);
+}
+.btn-outline {
+  width: 100%;
+  padding: 14px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 12px;
+  color: var(--text-main);
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+.product-card:hover .btn-outline {
+  background: var(--text-main);
+  color: #000;
+}
+
+/* ===== ABOUT (SPLIT LAYOUT) ===== */
+.about {
+  padding: 140px 5%;
+  position: relative;
+  background: 
+    linear-gradient(to right, rgba(1, 4, 8, 0.96) 0%, rgba(2, 13, 26, 0.85) 100%),
+    url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat fixed;
+  overflow: hidden;
+}
+.about::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 30% 50%, rgba(0, 208, 132, 0.12) 0%, transparent 60%),
+    radial-gradient(circle at 70% 80%, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  filter: blur(40px);
+  opacity: 0.8;
+  z-index: 0;
+  pointer-events: none;
+}
+.about::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.about-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.about-text h2 {
+  font-family: var(--font-head);
+  font-size: clamp(40px, 5vw, 60px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+.about-text p {
+  color: var(--text-muted);
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+.about-points {
+  list-style: none;
+  margin: 32px 0 40px;
+}
+.about-points li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-light);
+  font-weight: 500;
+}
+.point-icon {
+  width: 24px; height: 24px;
+  background: var(--accent-1);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: #000;
+  font-size: 12px;
+}
+.about-image {
+  position: relative;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+}
+.about-image img {
+  width: 100%;
+  display: block;
+  filter: grayscale(100%) contrast(1.2);
+  transition: filter 0.5s;
+}
+.about-image:hover img {
+  filter: grayscale(0%) contrast(1.1);
+}
+.about-badge {
+  position: absolute;
+  bottom: 30px; left: -30px;
+  width: 160px; height: 160px;
+  background: var(--bg-main);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+.about-badge .big {
+  font-family: var(--font-head);
+  font-size: 48px; font-weight: 900;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+}
+.about-badge .small {
+  font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 2px;
+}
+
+/* ===== TESTIMONIALS ===== */
+.testimonials {
+  padding: 140px 5%;
+  position: relative;
+  background: linear-gradient(180deg, rgba(1, 10, 20, 1) 0%, rgba(2, 13, 26, 0.95) 100%);
+}
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.test-card {
+  padding: 40px;
+  display: flex; flex-direction: column;
+  transition: transform 0.4s;
+}
+.test-card:hover { transform: translateY(-5px); }
+.stars { color: var(--accent-1); font-size: 18px; margin-bottom: 24px; letter-spacing: 4px; }
+.test-card p {
+  font-size: 16px; color: var(--text-main); font-style: italic; line-height: 1.8; margin-bottom: 32px; flex-grow: 1;
+}
+.test-author { display: flex; align-items: center; gap: 16px; border-top: 1px solid var(--border-light); padding-top: 24px; }
+.author-av {
+  width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.05);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-head); font-weight: 800; color: var(--text-main); border: 1px solid var(--border-light);
+}
+.author-meta .name { font-weight: 600; font-size: 15px; }
+.author-meta .role { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+/* ===== CONTACT ===== */
+.contact { 
+  padding: 140px 5%; 
+  position: relative; 
+  background: linear-gradient(135deg, #020b1a 0%, #1a022b 100%);
+  overflow: hidden;
+}
+.contact::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(0, 255, 255, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 208, 132, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.1) 0%, transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+.contact::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(circle at 50% 50%, black 20%, transparent 80%);
+  z-index: 1;
+  pointer-events: none;
+}
+.contact-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 80px;
+}
+.contact-info h2 {
+  font-family: var(--font-head); font-size: clamp(40px, 5vw, 64px); font-weight: 800; line-height: 1.1; margin-bottom: 24px; text-transform: uppercase;
+}
+.contact-info p { color: var(--text-muted); margin-bottom: 48px; font-size: 16px; }
+
+.c-item { 
+  display: flex; 
+  align-items: center; 
+  gap: 20px; 
+  padding: 24px; 
+  margin-bottom: 20px; 
+  background: rgba(3, 27, 58, 0.6);
+  border: 1px solid rgba(0, 208, 132, 0.2);
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+.c-item:hover { 
+  background: rgba(0, 208, 132, 0.08); 
+  border-color: var(--accent-1);
+  transform: translateX(10px);
+  box-shadow: 0 0 30px rgba(0, 208, 132, 0.15);
+}
+.c-item:hover { background: rgba(255,255,255,0.04); }
+.c-icon {
+  width: 56px; height: 56px; border-radius: 16px; background: rgba(255,255,255,0.03); border: 1px solid var(--border-light);
+  display: flex; align-items: center; justify-content: center; font-size: 20px;
+}
+.c-text .label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--accent-1); letter-spacing: 2px; margin-bottom: 6px; }
+.c-text .val { font-size: 16px; font-weight: 500; }
+
+.contact-form { 
+  padding: 48px; 
+  background: rgba(3, 27, 58, 0.4);
+  border: 1px solid rgba(0, 208, 132, 0.2);
+  border-radius: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(0, 208, 132, 0.02);
+  position: relative;
+}
+.contact-form::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(135deg, var(--accent-1), transparent, var(--accent-2));
+  border-radius: 32px;
+  z-index: -1;
+  opacity: 0.15;
+}
+.contact-form h3 { font-family: var(--font-head); font-size: 32px; font-weight: 800; margin-bottom: 32px; }
+.form-group { margin-bottom: 24px; }
+.form-group label { display: block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 10px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 16px 20px;
+  background: rgba(0,0,0,0.3); border: 1px solid var(--border-light); border-radius: 12px;
+  color: var(--text-main); font-family: var(--font-body); font-size: 15px; transition: all 0.3s; outline: none;
+}
+.form-group select option { background: var(--bg-main); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--accent-1); background: rgba(0,0,0,0.6); box-shadow: 0 0 0 4px rgba(255, 184, 0, 0.1);
+}
+.form-group textarea { resize: vertical; min-height: 120px; }
+.wa-btn {
+  width: 100%; padding: 18px; display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: #25D366; color: #fff; border: none; border-radius: 12px;
+  font-family: var(--font-head); font-weight: 800; font-size: 16px; letter-spacing: 1.5px; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s;
+}
+.wa-btn:hover { background: #1ebe58; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(37,211,102,0.4); }
+
+/* ===== FOOTER ===== */
+footer {
+  padding: 80px 5% 40px; 
+  border-top: 1px solid rgba(0, 208, 132, 0.15); 
+  background: #010409;
+  position: relative;
+  overflow: hidden;
+}
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 208, 132, 0.6), transparent);
+}
+.footer-inner {
+  max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 60px; margin-bottom: 60px;
+}
+.f-brand p { color: var(--text-muted); margin-top: 24px; max-width: 300px; }
+.f-col h4 { font-family: var(--font-head); font-size: 14px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--text-main); margin-bottom: 24px; }
+.f-col ul { list-style: none; }
+.f-col ul li { margin-bottom: 16px; }
+.f-col ul li a { color: var(--text-muted); text-decoration: none; font-size: 14px; transition: color 0.3s; }
+.f-col ul li a:hover { color: var(--accent-1); }
+.f-bottom {
+  max-width: 1200px; margin: 0 auto; padding-top: 32px; border-top: 1px solid var(--border-light);
+  display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--text-muted);
+}
+.f-bottom span { color: var(--text-main); font-weight: 600; }
+
+/* ===== FLOATING WA ===== */
+.float-wa {
+  position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+  background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 28px; color: white; text-decoration: none; z-index: 999; box-shadow: 0 10px 30px rgba(37,211,102,0.4);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.float-wa:hover { transform: scale(1.1) translateY(-4px); box-shadow: 0 15px 40px rgba(37,211,102,0.6); }
+
+/* ===== ANIMATIONS & RESPONSIVE ===== */
+.reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media(max-width: 1024px) {
+  .features-grid { grid-template-columns: 1fr; }
+  .about-inner, .contact-inner { grid-template-columns: 1fr; gap: 60px; }
+  .about-badge { display: none; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .hero h1 { font-size: clamp(50px, 12vw, 80px); }
+  .hero-bottom-bar { position: relative; flex-direction: column; gap: 32px; padding: 32px 5%; border-top: none; background: transparent; backdrop-filter: none; }
+  .hero-stats { flex-wrap: wrap; justify-content: center; }
+}
+@media(max-width: 768px) {
+  nav { padding: 12px 20px; width: 95%; }
+  
+  .menu-toggle { display: flex; }
+  
+  nav ul {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: rgba(5, 5, 5, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: center;
+    padding: 30px 0;
+    gap: 20px;
+    border-radius: 20px;
+    border: 1px solid var(--border-light);
+    transform: translateY(-20px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  
+  nav ul.active {
+    transform: translateY(10px);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  nav ul li a { font-size: 18px; }
+
+  .footer-inner { grid-template-columns: 1fr; gap: 40px; }
+  .f-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .contact-form { 
+  padding: 48px; 
+  background: rgba(3, 27, 58, 0.4);
+  border: 1px solid rgba(0, 208, 132, 0.2);
+  border-radius: 30px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 0 40px rgba(0, 208, 132, 0.02);
+  position: relative;
+}
+.contact-form::before {
+  content: '';
+  position: absolute;
+  top: -2px; left: -2px; right: -2px; bottom: -2px;
+  background: linear-gradient(135deg, var(--accent-1), transparent, var(--accent-2));
+  border-radius: 32px;
+  z-index: -1;
+  opacity: 0.15;
+}
+}
+</style>
+</head>
+<body>
+
+<div class="mesh-bg">
+  <div class="mesh-orb orb-1"></div>
+  <div class="mesh-orb orb-2"></div>
+  <div class="mesh-orb orb-3"></div>
+</div>
+<div class="noise-overlay"></div>
+
+<a href="https://wa.me/919960583760" class="float-wa" target="_blank">💬</a>
+
+<nav id="navbar" class="glass-panel">
+  <a href="#home" class="logo">
+    <div class="logo-icon">💊</div>
+    <div class="logo-text">
+      <span>AADYIN PHARMA</span>
+      <span>Elite Performance</span>
+    </div>
+  </a>
+
+  <div class="menu-toggle" id="mobile-menu">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </div>
+
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://wa.me/919960583760" class="nav-cta" target="_blank">Order Now</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="hero-content reveal">
+    <div class="section-tag">Premium Gym Nutrition</div>
+    <h1>
+      FUEL YOUR <span class="gradient-text">STRENGTH.</span><br>
+      <span class="accent-text">POWER YOUR LIFE.</span>
+    </h1>
+    <p>Elite pharmaceutical-grade supplements engineered for serious athletes, bodybuilders & fitness warriors across India.</p>
+    
+  </div>
+
+  <div class="hero-bottom-bar reveal">
+    <div class="hero-actions">
+      <a href="#products" class="btn-primary">Explore Products</a>
+      <a href="https://wa.me/919960583760" class="btn-secondary" target="_blank">💬 WhatsApp Us</a>
+    </div>
+    
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="num">500+</div>
+        <div class="label">Happy Clients</div>
+      </div>
+      <div class="stat-item separator"></div>
+      <div class="stat-item">
+        <div class="num">1000+</div>
+        <div class="label">Products Sold</div>
+      </div>
+      <div class="stat-item separator"></div>
+      <div class="stat-item">
+        <div class="num">10+</div>
+        <div class="label">Years Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="section-header reveal">
+    <div class="section-tag">Why AADYIN</div>
+    <h2>BUILT FOR <span class="accent-text">WARRIORS</span></h2>
+    <p>Everything we make is engineered with one goal — maximum performance, zero compromise.</p>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card glass-panel reveal">
+      <div class="feature-icon">🧬</div>
+      <h3>Pharmaceutical Grade</h3>
+      <p>Every product is formulated with pharmaceutical-grade raw ingredients for purity, potency and consistent results.</p>
+    </div>
+    <div class="feature-card glass-panel reveal">
+      <div class="feature-icon">⚡</div>
+      <h3>Science-Backed Formula</h3>
+      <p>Our compounds are developed with science-backed research for real, measurable performance gains in the gym.</p>
+    </div>
+    <div class="feature-card glass-panel reveal">
+      <div class="feature-icon">🏆</div>
+      <h3>Trusted by Athletes</h3>
+      <p>500+ satisfied clients — from amateur gym-goers to professional competitive bodybuilders trust AADYIN.</p>
+    </div>
+    <div class="feature-card glass-panel reveal">
+      <div class="feature-icon">🔒</div>
+      <h3>100% Authentic</h3>
+      <p>Genuine products only. Zero counterfeits, zero compromise on quality — your safety is our commitment.</p>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="section-header reveal">
+    <div class="section-tag">Our Lineup</div>
+    <h2>ELITE <span class="accent-text">PRODUCTS</span></h2>
+    <p>Premium anabolic compounds and performance ingredients for serious results.</p>
+  </div>
+
+  <div class="product-grid" id="card-container">
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/whey_protein_black_bg_1778585017083.png" alt="Whey Protein">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">Added Isolate</div>
+        <h3>WHEY PROTEIN</h3>
+        <p>Whey isolate enhanced for superior gains. Great for post-workout recovery. 25g protein per scoop.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Recovery</span>
+          <span class="benefit-tag">Muscle Growth</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Whey Protein." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/whey_nitrox_black_bg_1778585042695.png" alt="Whey NitroX">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">Added Hydrolized Whey</div>
+        <h3>WHEY NITROX</h3>
+        <p>Ultimate muscle building formula loaded with creatine, test booster and L-arginine.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Creatine</span>
+          <span class="benefit-tag">Test Booster</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Whey NitroX." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/classic_whey_black_bg_1778585070440.png" alt="Classic Whey">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">Classic Formula</div>
+        <h3>CLASSIC WHEY</h3>
+        <p>Experience the power of premium protein supplements crafted to fuel your body and accelerate recovery.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Protein</span>
+          <span class="benefit-tag">Endurance</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Classic Whey." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+    
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/devil_rush_black_bg_1778585090899.png" alt="Devil Rush">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">Super Dosed Pre-Workout</div>
+        <h3>DEVIL RUSH</h3>
+        <p>Ignites energy levels, giving you the drive to push through the toughest workouts.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Energy</span>
+          <span class="benefit-tag">Focus</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Devil Rush." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/eaas_bcaa_black_bg_1778585111749.png" alt="EAAs + BCAA">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">Complete Amino Hydration</div>
+        <h3>EAAs + BCAA</h3>
+        <p>Formulated to support muscle growth, enhance recovery, and boost overall performance.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Hydration</span>
+          <span class="benefit-tag">Recovery</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in EAAs + BCAA." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/creatine_mono_black_bg_1778585133614.png" alt="Creatine">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">Micronized Powder</div>
+        <h3>CREATINE MONO</h3>
+        <p>Micronized creatine powder to increase endurance, muscle mass, and strength during high-intensity exercise.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Strength</span>
+          <span class="benefit-tag">Endurance</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Creatine Monohydrate." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/test_pro_black_bg_1778584838065.png" alt="Test Pro">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">Testosterone Booster</div>
+        <h3>TEST PRO</h3>
+        <p>The complete non hormonal stack. Muscle, strength, recovery, increase libido, hormone balance.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Hormone Balance</span>
+          <span class="benefit-tag">Strength</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Test Pro." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/pro_cuts_black_bg_1778584856550.png" alt="Pro Cuts">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">Fat Burner</div>
+        <h3>PRO CUTS</h3>
+        <p>Fat Burning & Thermogenic. Appetite suppression, decreased water retention, elevated calorie burning.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Thermogenic</span>
+          <span class="benefit-tag">Fat Loss</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Pro Cuts." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/andro_stack_black_bg_1778585149649.png" alt="Andro Stack">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">Strength Builder</div>
+        <h3>ANDRO STACK</h3>
+        <p>The complete hormone stack. Nutrient Partitioning, Protein synthesis, Anabolism, Anti catabolism.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Anabolism</span>
+          <span class="benefit-tag">Protein Synthesis</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Andro Stack." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/citruline_arginine_black_bg_1778585171253.png" alt="Citruline + Arginine">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">Performance</div>
+        <h3>CITRULINE + ARGININE</h3>
+        <p>Elevate your workout performance. Formulated to support your fitness goals and accelerate results.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Performance</span>
+          <span class="benefit-tag">Pump</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Citruline + Arginine." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/puretech_page_3_edited_1778586433315.png" alt="Boldi-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">300MG/ML Boldenone Undecylenate</div>
+        <h3>BOLDI-TECH</h3>
+        <p>Balanced anabolic and androgenic properties. Promotes lean and dense muscle growth while raising appetite.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Lean Muscle</span>
+          <span class="benefit-tag">Increased Appetite</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Boldi-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/puretech_page_4_edited_1778586461223.png" alt="Deca-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">300MG/ML Nandrolone Decanoate</div>
+        <h3>DECA-TECH</h3>
+        <p>Classic drug for rapid muscle bulk gain. Ideal for long cycles with steady release for huge growth.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Bulk Gain</span>
+          <span class="benefit-tag">Steady Release</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Deca-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/puretech_page_6_edited_1778586480238.png" alt="Bulk-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">500MG/ML Nandrolone / Test / Tren</div>
+        <h3>BULK-TECH</h3>
+        <p>Extreme gain of muscle in bulk. Extremely strong formula engineered exclusively for serious athletes.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Extreme Bulk</span>
+          <span class="benefit-tag">Raw Power</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Bulk-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/puretech_page_9_edited_1778586498435.png" alt="Cut-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">200MG/ML Test / Tren / Mast</div>
+        <h3>CUT-TECH</h3>
+        <p>A unique mixture to accelerate loss of body weight and get impeccably ripped.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Fat Loss</span>
+          <span class="benefit-tag">Ripped Muscle</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Cut-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/puretech_page_5_edited_1778586688934.png" alt="NPP">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">100MG/ML Nandrolone Phenylpropionate</div>
+        <h3>NPP</h3>
+        <p>A long-lasting prodrug that helps gain masculinity and lean muscle. Convenient for usage with quick results.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Lean Muscle</span>
+          <span class="benefit-tag">Masculinity</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in NPP." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/puretech_page_7_edited_1778586704319.png" alt="Hard-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">500MG/ML Test / NPP / Tren</div>
+        <h3>HARD-TECH</h3>
+        <p>An extremely strong formula engineered exclusively for gaining pure lean muscle mass and ultimate strength.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Lean Mass</span>
+          <span class="benefit-tag">Strength</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Hard-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="file:///C:/Users/sudar/.gemini/antigravity/brain/f1562f7a-fde5-4209-913e-28cc4c85c01b/puretech_page_8_edited_1778586722888.png" alt="TRT">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">200MG/ML Test / Methenolone</div>
+        <h3>TRT</h3>
+        <p>Improves energy, bone density, and muscle mass. Enhances well-being, mood, and overall vitality.</p>
+        <div class="product-benefits">
+          <span class="benefit-tag">Vitality</span>
+          <span class="benefit-tag">Energy</span>
+        </div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in TRT." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 10 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_10_nobg.png" alt="Winni-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">100MG/ML Stanozolol</div>
+        <h3>WINNI-TECH</h3>
+        <p>Fast-acting anabolic for raw power and speed. Gets you ripped with zero water retention.</p>
+        <div class="product-benefits"><span class="benefit-tag">Power</span><span class="benefit-tag">Speed</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Winni-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 11 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_11_nobg.png" alt="Cypo-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">250MG/ML Testosterone Cypionate</div>
+        <h3>CYPO-TECH</h3>
+        <p>Highly anabolic and androgenic. Provides dramatic increases in muscle size and strength.</p>
+        <div class="product-benefits"><span class="benefit-tag">Muscle Size</span><span class="benefit-tag">Strength</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Cypo-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 12 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_12_nobg.png" alt="Susta-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">250MG/ML Testosterone Mix</div>
+        <h3>SUSTA-TECH</h3>
+        <p>Perfectly balanced blend for steady testosterone release. Maximizes muscle growth and recovery.</p>
+        <div class="product-benefits"><span class="benefit-tag">Steady Release</span><span class="benefit-tag">Recovery</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Susta-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 13 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_13_nobg.png" alt="Prop-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">100MG/ML Testosterone Propionate</div>
+        <h3>PROP-TECH</h3>
+        <p>Fast-acting testosterone ester. Ideal for short cycles to gain rapid strength and muscle mass.</p>
+        <div class="product-benefits"><span class="benefit-tag">Rapid Strength</span><span class="benefit-tag">Fast Acting</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Prop-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 14 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_14_nobg.png" alt="Testo-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">250MG/ML Testosterone Enanthate</div>
+        <h3>TESTO-TECH</h3>
+        <p>The ultimate foundational steroid. Dramatically boosts strength, muscle mass, and overall performance.</p>
+        <div class="product-benefits"><span class="benefit-tag">Foundation</span><span class="benefit-tag">Mass</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Testo-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 15 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_15_nobg.png" alt="Mast-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">100MG/ML Drostanolone Propionate</div>
+        <h3>MAST-TECH</h3>
+        <p>Potent androgen for a hard, ripped look. Essential for pre-contest prep and intense cutting phases.</p>
+        <div class="product-benefits"><span class="benefit-tag">Hard Look</span><span class="benefit-tag">Cutting</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Mast-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 16 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_16_nobg.png" alt="Prima-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">100MG/ML Methenolone Enanthate</div>
+        <h3>PRIMA-TECH</h3>
+        <p>Mild but effective anabolic for lean muscle tissue. Excellent for bridging and preserving gains.</p>
+        <div class="product-benefits"><span class="benefit-tag">Lean Tissue</span><span class="benefit-tag">Preservation</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Prima-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 17 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_17_nobg.png" alt="Tren A-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">100MG/ML Trenbolone Acetate</div>
+        <h3>TREN A-TECH</h3>
+        <p>Incredibly powerful short-acting compound. Extreme muscle hardness and rapid fat loss.</p>
+        <div class="product-benefits"><span class="benefit-tag">Hardness</span><span class="benefit-tag">Fat Loss</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Tren A-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 18 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_18_nobg.png" alt="Tren E-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">200MG/ML Trenbolone Enanthate</div>
+        <h3>TREN E-TECH</h3>
+        <p>Long-acting trenbolone for massive strength and size. Transforms your physique with dry gains.</p>
+        <div class="product-benefits"><span class="benefit-tag">Massive Size</span><span class="benefit-tag">Dry Gains</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Tren E-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 19 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_19_nobg.png" alt="Tren H-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">76.5MG/ML Trenbolone Hexahydro</div>
+        <h3>TREN H-TECH</h3>
+        <p>The legendary Parabolan ester. Exceptional for extreme conditioning and relentless power.</p>
+        <div class="product-benefits"><span class="benefit-tag">Conditioning</span><span class="benefit-tag">Power</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Tren H-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 21 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_21_nobg.png" alt="Andro-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">50MG Oxymetholone Tablets</div>
+        <h3>ANDRO-TECH</h3>
+        <p>One of the strongest oral steroids available. Unmatched for explosive size and raw power.</p>
+        <div class="product-benefits"><span class="benefit-tag">Explosive Size</span><span class="benefit-tag">Oral</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Andro-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 22 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_22_nobg.png" alt="Diana-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">10MG Methandienone Tablets</div>
+        <h3>DIANA-TECH</h3>
+        <p>The classic bulking oral. Kicks off your cycle with fast, noticeable gains in muscle and strength.</p>
+        <div class="product-benefits"><span class="benefit-tag">Classic Bulk</span><span class="benefit-tag">Fast Gains</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Diana-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 23 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_23_nobg.png" alt="Armi-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">1MG Anastrozole Tablets</div>
+        <h3>ARMI-TECH</h3>
+        <p>Powerful aromatase inhibitor. Controls estrogen levels and prevents unwanted side effects during cycle.</p>
+        <div class="product-benefits"><span class="benefit-tag">Estrogen Control</span><span class="benefit-tag">Protection</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Armi-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 24 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_24_nobg.png" alt="Cloma-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">50MG Clomiphene Citrate Tablets</div>
+        <h3>CLOMA-TECH</h3>
+        <p>Essential PCT compound. Restores natural hormone production safely and effectively.</p>
+        <div class="product-benefits"><span class="benefit-tag">PCT</span><span class="benefit-tag">Recovery</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Cloma-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 25 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_25_nobg.png" alt="Provi-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">25MG Masterolone Tablets</div>
+        <h3>PROVI-TECH</h3>
+        <p>Strong androgenic oral. Enhances the effects of other steroids and promotes a dense, hard look.</p>
+        <div class="product-benefits"><span class="benefit-tag">Density</span><span class="benefit-tag">Synergy</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Provi-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 26 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_26_nobg.png" alt="Nolva-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">20MG Tamoxifen Citrate Tablets</div>
+        <h3>NOLVA-TECH</h3>
+        <p>Reliable SERM for post-cycle therapy. Crucial for estrogen blocking and restoring balance.</p>
+        <div class="product-benefits"><span class="benefit-tag">SERM</span><span class="benefit-tag">Balance</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Nolva-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 27 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_27_nobg.png" alt="Clen-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">40MCG Clenbuterol HCL Tablets</div>
+        <h3>CLEN-TECH</h3>
+        <p>Extremely potent thermogenic. Rapidly burns fat while preserving hard-earned muscle tissue.</p>
+        <div class="product-benefits"><span class="benefit-tag">Thermogenic</span><span class="benefit-tag">Preservation</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Clen-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 28 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_28_nobg.png" alt="Stana-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">10MG Stanozolol Tablets</div>
+        <h3>STANA-TECH</h3>
+        <p>Oral Winstrol for serious cutting. Delivers lean, dry muscle without water retention.</p>
+        <div class="product-benefits"><span class="benefit-tag">Serious Cutting</span><span class="benefit-tag">Dry Muscle</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Stana-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 29 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_29_nobg.png" alt="T3">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">25MCG Liothyronine Sodium Tablets</div>
+        <h3>T3</h3>
+        <p>Powerful thyroid hormone. Dramatically increases metabolic rate for elite-level fat burning.</p>
+        <div class="product-benefits"><span class="benefit-tag">Metabolic Rate</span><span class="benefit-tag">Elite Fat Burning</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in T3." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 30 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_30_nobg.png" alt="Oxy-Tech">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">10MG Oxandrolone Tablets</div>
+        <h3>OXY-TECH</h3>
+        <p>The premium oral for lean, high-quality gains. Safe, effective, and perfect for cutting.</p>
+        <div class="product-benefits"><span class="benefit-tag">Premium Lean</span><span class="benefit-tag">Safe</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Oxy-Tech." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+    <!-- Page 31 -->
+    <div class="product-card glass-panel reveal">
+      <div class="product-img-wrap">
+        <img src="images/puretech/page_31_nobg.png" alt="Turinabol">
+      </div>
+      <div class="product-body">
+        <div class="product-sub">10MG Chlorodehydromethyl Testosterone</div>
+        <h3>TURINABOL</h3>
+        <p>Lean muscle builder with zero estrogen conversion. Provides solid, keepable strength gains.</p>
+        <div class="product-benefits"><span class="benefit-tag">Keepable Gains</span><span class="benefit-tag">Zero Estrogen</span></div>
+        <a href="https://wa.me/919960583760?text=Hi! I'm interested in Turinabol." class="btn-outline" target="_blank">Enquire Now</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-text reveal">
+      <div class="section-tag">Our Story</div>
+      <h2>ABOUT <br><span class="accent-text">AADYIN</span><br>PHARMA</h2>
+      <p>AADYIN PHARMA is a premium gym lifestyle and performance brand dedicated to delivering the highest quality products for athletes and bodybuilders across India.</p>
+      <p>We combine cutting-edge pharmaceutical science with hardcore fitness culture to create compounds that deliver real, visible results — trusted by hundreds of serious athletes.</p>
+      <ul class="about-points">
+        <li><div class="point-icon">✓</div>10+ years in the performance supplement industry</li>
+        <li><div class="point-icon">✓</div>Pharmaceutical-grade raw materials, strictly sourced</li>
+        <li><div class="point-icon">✓</div>Expert guidance from certified fitness professionals</li>
+        <li><div class="point-icon">✓</div>500+ satisfied athletes and bodybuilders</li>
+      </ul>
+      <a href="https://wa.me/919960583760" class="btn-primary" target="_blank">Talk to an Expert</a>
+    </div>
+
+    <div class="about-image reveal">
+      <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop" alt="Gym">
+      <div class="about-badge">
+        <div class="big">10+</div>
+        <div class="small">Years of<br>Excellence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials" id="testimonials">
+  <div class="section-header reveal">
+    <div class="section-tag">Client Results</div>
+    <h2>WHAT ATHLETES <span class="accent-text">SAY</span></h2>
+    <p>Real feedback from real athletes who trust AADYIN PHARMA.</p>
+  </div>
+
+  <div class="testimonial-grid">
+    <div class="test-card glass-panel reveal">
+      <div class="stars">★★★★★</div>
+      <p>"Whey Protein completely changed my physique. I gained incredible vascularity and lean muscle within 8 weeks. Quality is unmatched!"</p>
+      <div class="test-author">
+        <div class="author-av">RS</div>
+        <div class="author-meta">
+          <div class="name">Rahul Sharma</div>
+          <div class="role">Competitive Bodybuilder • Pune</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-card glass-panel reveal">
+      <div class="stars">★★★★★</div>
+      <p>"Fast delivery, genuine product and amazing results with Whey NitroX. The team guided me perfectly through my entire cycle. Highly recommended!"</p>
+      <div class="test-author">
+        <div class="author-av">AK</div>
+        <div class="author-meta">
+          <div class="name">Arjun Kulkarni</div>
+          <div class="role">Powerlifter • Mumbai</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="test-card glass-panel reveal">
+      <div class="stars">★★★★★</div>
+      <p>"Classic Whey gave me incredible joint support during my heavy lifting phase. Strength went through the roof. AADYIN is 100% legit!"</p>
+      <div class="test-author">
+        <div class="author-av">VD</div>
+        <div class="author-meta">
+          <div class="name">Vikram Deshmukh</div>
+          <div class="role">Gym Athlete • Nashik</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <div class="section-tag">Get In Touch</div>
+      <h2>CONTACT <span class="accent-text">US</span></h2>
+      <p>Have questions? Want to order? Our team is ready to help you choose the right products for your goals.</p>
+
+      <div class="c-item glass-panel">
+        <div class="c-icon">📧</div>
+        <div class="c-text">
+          <div class="label">Email</div>
+          <div class="val">info@aadyinpharma.com</div>
+        </div>
+      </div>
+      <div class="c-item glass-panel">
+        <div class="c-icon">📞</div>
+        <div class="c-text">
+          <div class="label">Phone / WhatsApp</div>
+          <div class="val">+91 9960583760</div>
+        </div>
+      </div>
+      <div class="c-item glass-panel">
+        <div class="c-icon">📍</div>
+        <div class="c-text">
+          <div class="label">Location</div>
+          <div class="val">Pune, Maharashtra, India</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form glass-panel reveal">
+      <h3>SEND ENQUIRY</h3>
+
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" id="fname" placeholder="Enter your full name">
+      </div>
+
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" id="fphone" placeholder="+91 XXXXX XXXXX">
+      </div>
+
+      <div class="form-group">
+        <label>Product Interested In</label>
+        <select id="fproduct">
+          <option value="">-- Select Product --</option>
+          <option value="Whey Protein">Whey Protein</option>
+          <option value="Whey NitroX">Whey NitroX</option>
+          <option value="Classic Whey">Classic Whey</option>
+          <option value="Devil Rush">Devil Rush</option>
+          <option value="EAAs BCAA">EAAs BCAA</option>
+          <option value="Other / General Enquiry">Other / General Enquiry</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Your Message</label>
+        <textarea id="fmsg" placeholder="Tell us your goals, questions or requirements..."></textarea>
+      </div>
+
+      <button class="wa-btn" onclick="sendWhatsApp()">
+        💬 Send via WhatsApp
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="f-brand">
+      <a href="#home" class="logo">
+        <div class="logo-icon">💊</div>
+        <div class="logo-text">
+          <span>AADYIN PHARMA</span>
+          <span>Elite Performance</span>
+        </div>
+      </a>
+      <p>Premium pharmaceutical-grade gym supplements and performance ingredients for serious athletes across India.</p>
+    </div>
+
+    <div class="f-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="f-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="#products">Whey Protein</a></li>
+        <li><a href="#products">Whey NitroX</a></li>
+        <li><a href="#products">Classic Whey</a></li>
+        <li><a href="https://wa.me/919960583760">More Products</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="f-bottom">
+    <p>© 2026 <span>AADYIN PHARMA</span> · All Rights Reserved</p>
+    <p>Engineered with <span>⭐</span> for Warriors · Pune, Maharashtra</p>
+  </div>
+</footer>
+
+<script>
+// Mobile Menu Toggle
+const menuToggle = document.querySelector('#mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('is-active');
+  navLinks.classList.toggle('active');
+});
+
+navLinks.addEventListener('click', (e) => {
+  if (e.target.tagName === 'A') {
+    menuToggle.classList.remove('is-active');
+    navLinks.classList.remove('active');
+  }
+});
+
+// Navbar Scroll Effect
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if(window.scrollY > 50) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+});
+
+// Scroll Reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+reveals.forEach(el => observer.observe(el));
+
+// Mouse Light Effect on Product Cards
+document.getElementById('card-container').onmousemove = e => {
+  for(const card of document.getElementsByClassName('product-card')) {
+    const rect = card.getBoundingClientRect(),
+          x = e.clientX - rect.left,
+          y = e.clientY - rect.top;
+    card.style.setProperty("--mouse-x", `${x}px`);
+    card.style.setProperty("--mouse-y", `${y}px`);
+  };
+}
+
+// WhatsApp Function
+function sendWhatsApp() {
+  const name = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('fphone').value.trim();
+  const product = document.getElementById('fproduct').value;
+  const msg = document.getElementById('fmsg').value.trim();
+
+  if (!name || !phone) {
+    alert('Please enter your name and phone number.');
+    return;
+  }
+
+  const text = `Hello AADYIN PHARMA! 👋\n\n*Name:* ${name}\n*Phone:* ${phone}\n*Product:* ${product || 'General Enquiry'}\n*Message:* ${msg || 'I would like more information.'}\n\nPlease guide me further. Thank you!`;
+  window.open(`https://wa.me/919960583760?text=${encodeURIComponent(text)}`, '_blank');
+}
+</script>
+
+</body>
+</html>
