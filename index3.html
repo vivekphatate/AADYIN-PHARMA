@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AADYIN PHARMA – Elite Performance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+fetch("https://api.countapi.xyz/hit/aadyinpharma/visits")
+.then(response => response.json())
+.then(data => {
+
+document.getElementById("visitor-count").innerText = data.value + "+";
+
+});
+</script>
+  <style>
+    /* ===== CORE RESET & VARIABLES ===== */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg-main: #020d1a;
+      --bg-deep: #010810;
+      --bg-card: rgba(0,208,132,0.03);
+      --bg-card-hover: rgba(0,208,132,0.07);
+      --border-light: rgba(0,208,132,0.12);
+      --border-glow: rgba(0,208,132,0.4);
+      --accent-1: #00D084;
+      --accent-2: #00FF9F;
+      --accent-dim: #007A4E;
+      --navy-1: #021B3A;
+      --navy-2: #030F22;
+      --text-main: #FFFFFF;
+      --text-muted: #7A9BB5;
+      --glow-green: rgba(0,208,132,0.35);
+      --glow-green-soft: rgba(0,208,132,0.12);
+      --font-head: 'Outfit', sans-serif;
+      --font-teko: 'Teko', sans-serif;
+      --font-body: 'Inter', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===== CINEMATIC BACKGROUND ===== */
+    .mesh-bg {
+      position: fixed; top:0; left:0; width:100vw; height:100vh;
+      z-index:-2; overflow:hidden; pointer-events:none;
+      background: radial-gradient(ellipse 120% 80% at 50% -10%, #021B3A 0%, #010D1C 45%, #020912 100%);
+    }
+    .mesh-bg::before {
+      content:''; position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 60% 50% at 15% 20%, rgba(0,208,132,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 85% 75%, rgba(0,208,132,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 80% 60% at 50% 100%, rgba(2,27,58,0.9) 0%, transparent 70%);
+    }
+    .mesh-bg::after {
+      content:''; position:absolute; inset:0;
+      background-image:
+        linear-gradient(rgba(0,208,132,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,208,132,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 100% 100% at 50% 50%, black 20%, transparent 80%);
+    }
+    .mesh-orb { position:absolute; border-radius:50%; filter:blur(120px); opacity:0.5; animation:floatOrb 25s infinite ease-in-out alternate; }
+    .orb-1 { width:600px; height:600px; background:radial-gradient(circle, rgba(0,208,132,0.6) 0%, rgba(0,208,132,0.1) 60%, transparent 100%); top:-15%; left:-12%; filter:blur(100px); opacity:0.45; }
+    .orb-2 { width:700px; height:700px; background:radial-gradient(circle, rgba(0,100,200,0.15) 0%, rgba(2,27,58,0.4) 60%, transparent 100%); bottom:-20%; right:-10%; animation-delay:-8s; opacity:0.6; filter:blur(150px); }
+    .orb-3 { width:400px; height:400px; background:radial-gradient(circle, rgba(0,255,159,0.12) 0%, transparent 70%); top:45%; left:55%; animation-delay:-14s; opacity:0.5; filter:blur(90px); }
+
+    @keyframes floatOrb {
+      0%   { transform:translate(0,0) scale(1); }
+      33%  { transform:translate(40px,-30px) scale(1.05); }
+      66%  { transform:translate(-20px,50px) scale(0.97); }
+      100% { transform:translate(60px,20px) scale(1.1); }
+    }
+
+    .noise-overlay { position:fixed; inset:0; z-index:9999; pointer-events:none; opacity:0.035;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    ::-webkit-scrollbar { width:6px; }
+    ::-webkit-scrollbar-track { background:var(--bg-deep); }
+    ::-webkit-scrollbar-thumb { background:rgba(0,208,132,0.3); border-radius:10px; }
+    ::-webkit-scrollbar-thumb:hover { background:var(--accent-1); }
+
+    /* ===== REUSABLE ===== */
+    .glass-panel {
+      background: linear-gradient(135deg, rgba(0,208,132,0.05) 0%, rgba(2,15,35,0.6) 100%);
+      backdrop-filter: blur(24px) saturate(1.3);
+      -webkit-backdrop-filter: blur(24px) saturate(1.3);
+      border:1px solid var(--border-light);
+      border-radius:24px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(0,208,132,0.1), inset 0 -1px 0 rgba(0,0,0,0.3);
+    }
+
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:12px;
+      padding:16px 32px;
+      background:linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+      color:#000; font-family:var(--font-head); font-weight:800; font-size:15px;
+      letter-spacing:1.5px; text-transform:uppercase; text-decoration:none;
+      border-radius:100px; border:none; cursor:pointer;
+      transition:all 0.4s cubic-bezier(0.16,1,0.3,1);
+      box-shadow:0 8px 30px rgba(0,208,132,0.3); position:relative; overflow:hidden;
+    }
+    .btn-primary::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent); transition:all 0.6s ease; }
+    .btn-primary:hover { transform:translateY(-4px) scale(1.02); box-shadow:0 20px 50px rgba(0,208,132,0.45),0 0 80px rgba(0,208,132,0.15); }
+    .btn-primary:hover::before { left:100%; }
+
+    .btn-secondary {
+      display:inline-flex; align-items:center; gap:12px;
+      padding:16px 32px;
+      background:rgba(0,208,132,0.05); border:1px solid rgba(0,208,132,0.25);
+      color:var(--accent-1); font-family:var(--font-head); font-weight:600; font-size:15px;
+      letter-spacing:1.5px; text-transform:uppercase; text-decoration:none;
+      border-radius:100px; backdrop-filter:blur(10px);
+      transition:all 0.4s ease; box-shadow:0 0 20px rgba(0,208,132,0.05);
+    }
+    .btn-secondary:hover { background:rgba(0,208,132,0.12); border-color:rgba(0,208,132,0.5); color:var(--accent-2); transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,208,132,0.2); }
+
+    .section-tag {
+      display:inline-flex; align-items:center;
+      padding:8px 16px;
+      background:rgba(0,208,132,0.08); border:1px solid rgba(0,208,132,0.25);
+      border-radius:100px; font-family:var(--font-head); font-size:11px; font-weight:800;
+      letter-spacing:3px; text-transform:uppercase; color:var(--accent-1);
+      margin-bottom:24px; box-shadow:0 0 20px rgba(0,208,132,0.1);
+      position:relative; overflow:hidden;
+    }
+    .section-tag::after {
+      content:''; position:absolute; left:0; bottom:0; width:100%; height:100%;
+      background:var(--bg-main); transform:translateX(-101%);
+      transition:transform 0.6s cubic-bezier(0.77,0,0.175,1);
+    }
+    .section-tag.tag-revealed::after { transform:translateX(101%); }
+
+    /* ===== NAVBAR ===== */
+    nav {
+      position:fixed; top:24px; left:50%; transform:translateX(-50%);
+      width:90%; max-width:1200px; padding:12px 24px;
+      display:flex; justify-content:space-between; align-items:center;
+      z-index:1000; transition:all 0.5s ease; border-radius:100px;
+    }
+    nav.scrolled {
+      background:rgba(2,9,20,0.75); backdrop-filter:blur(30px) saturate(1.5);
+      -webkit-backdrop-filter:blur(30px) saturate(1.5);
+      border:1px solid rgba(0,208,132,0.15);
+      box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(0,208,132,0.05);
+      width:95%; top:16px;
+    }
+    .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+    .logo-icon { width:44px; height:44px; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 0 25px rgba(0,208,132,0.5),0 0 50px rgba(0,208,132,0.15); }
+    .logo-text { display:flex; flex-direction:column; line-height:1; }
+    .logo-text span:first-child { font-family:var(--font-head); font-weight:900; font-size:22px; letter-spacing:2px; color:var(--text-main); }
+    .logo-text span:last-child { font-size:9px; font-weight:600; letter-spacing:3px; color:var(--accent-1); text-transform:uppercase; margin-top:4px; }
+    nav ul { display:flex; gap:8px; list-style:none; }
+    nav ul li a { text-decoration:none; color:var(--text-muted); font-size:14px; font-weight:500; padding:10px 20px; border-radius:100px; transition:all 0.3s ease; }
+    nav ul li a:hover { color:var(--accent-1); background:rgba(0,208,132,0.08); box-shadow:0 0 15px rgba(0,208,132,0.1); }
+    .nav-cta { padding:12px 24px !important; background:var(--accent-1) !important; color:#000 !important; font-weight:700 !important; box-shadow:0 0 20px rgba(0,208,132,0.3) !important; }
+    .nav-cta:hover { background:var(--accent-2) !important; transform:scale(1.05); box-shadow:0 0 35px rgba(0,208,132,0.5) !important; }
+
+    .menu-toggle { display:none; flex-direction:column; cursor:pointer; gap:6px; z-index:1001; }
+    .menu-toggle .bar { width:25px; height:3px; background-color:var(--accent-1); transition:all 0.3s ease; border-radius:3px; box-shadow:0 0 6px rgba(0,208,132,0.4); }
+    .menu-toggle.is-active .bar:nth-child(1) { transform:translateY(9px) rotate(45deg); }
+    .menu-toggle.is-active .bar:nth-child(2) { opacity:0; }
+    .menu-toggle.is-active .bar:nth-child(3) { transform:translateY(-9px) rotate(-45deg); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      position:relative; padding:120px 5%; text-align:center;
+      background:
+        linear-gradient(to bottom, rgba(2,13,26,0.4) 0%, rgba(1,8,16,0.95) 100%),
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(0,208,132,0.15) 0%, transparent 70%),
+        url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
+    }
+    .hero::before {
+      content:''; position:absolute; inset:0;
+      background:repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,208,132,0.006) 3px, rgba(0,208,132,0.006) 4px);
+      pointer-events:none; z-index:1;
+    }
+    .hero-content { max-width:1000px; position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; }
+
+    /* ===== HERO HEADING — FIXED ===== */
+    .hero-content h1 {
+      font-family: var(--font-teko);
+      font-size: clamp(72px, 10vw, 140px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 25px;
+      /* NO global color here — controlled per span */
+    }
+
+    /* "FUEL YOUR" — hollow outline like image 4 */
+    .hero-content h1 .outline-text {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 4.5px rgba(255,255,255,0.65);
+      text-shadow: none;
+    }
+
+    /* "STRENGTH." — neon green glow */
+    .hero-content h1 .gradient-text {
+      display: block;
+      color: #00F0B5;
+      -webkit-text-stroke: 0px;
+      text-shadow:
+        0 0 20px rgba(0,240,181,0.55),
+        0 0 45px rgba(0,240,181,0.3);
+    }
+
+    /* "POWER YOUR LIFE." — solid white */
+    .hero-content h1 .accent-text {
+      display: block;
+      color: #ffffff;
+      -webkit-text-stroke: 0px;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .hero p { font-size:clamp(16px,2vw,20px); color:var(--text-muted); max-width:600px; margin-bottom:48px; font-weight:400; line-height:1.8; }
+
+    /* ===== HERO BOTTOM BAR ===== */
+    .hero-bottom-bar {
+      position:absolute; bottom:0; left:0; width:100%;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:24px 5%;
+      background:rgba(2,13,26,0.6); backdrop-filter:blur(30px) saturate(1.4);
+      -webkit-backdrop-filter:blur(30px) saturate(1.4);
+      border-top:1px solid rgba(0,208,132,0.12); z-index:10;
+      box-shadow:0 -10px 40px rgba(0,0,0,0.4);
+    }
+    .hero-actions { display:flex; gap:20px; align-items:center; }
+    .hero-stats { display:flex; gap:32px; align-items:center; }
+    .stat-item { display:flex; align-items:center; gap:16px; text-align:left; }
+    .stat-item .num { font-family:var(--font-head); font-size:32px; font-weight:800; color:var(--accent-1); line-height:1; text-shadow:0 0 20px rgba(0,208,132,0.4); }
+    .stat-item .label { font-size:10px; font-weight:600; letter-spacing:2px; color:var(--text-muted); text-transform:uppercase; max-width:90px; }
+    .stat-item.separator { width:1px; height:40px; background:rgba(0,208,132,0.15); margin:0; padding:0; }
+
+    /* ===== MARQUEE ===== */
+    .marquee-track { overflow:hidden; white-space:nowrap; padding:28px 0; background:var(--accent-1); color:#000; font-family:var(--font-head); font-weight:900; font-size:15px; letter-spacing:3px; text-transform:uppercase; margin:0; position:relative; z-index:2; }
+    .marquee-inner { display:inline-block; animation:marqueeScroll 22s linear infinite; will-change:transform; }
+    .marquee-inner span { display:inline-block; padding:0 48px; }
+    .marquee-inner span::after { content:'★'; margin-left:48px; opacity:0.5; }
+    @keyframes marqueeScroll { from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+    /* ===== SECTION HEADER (shared) ===== */
+    .section-header { text-align:center; margin-bottom:80px; }
+    .section-header p { color:var(--text-muted); font-size:18px; margin-top:16px; max-width:500px; margin-left:auto; margin-right:auto; }
+
+    /* ===== SECTION H2 — BASE (dark sections: features, about, testimonials, contact) ===== */
+    .features .section-header h2,
+    .about-text h2,
+    .testimonials .section-header h2,
+    .contact-info h2 {
+      font-family: var(--font-teko);
+      font-size: clamp(40px, 6vw, 80px);
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      line-height: 1.0;
+      color: #ffffff;
+      -webkit-text-stroke: 0px;
+    }
+
+    /* Accent spans inside dark-section headings */
+    .features .section-header h2 .accent-text,
+    .testimonials .section-header h2 .accent-text,
+    .contact-info h2 .accent-text,
+    .about-text h2 .accent-text {
+      color: var(--accent-1);
+      -webkit-text-stroke: 0px;
+      text-shadow: 0 0 20px rgba(0,208,132,0.35);
+    }
+
+    /* ===== FEATURES SECTION ===== */
+    .features {
+      padding:140px 5%; position:relative;
+      background:linear-gradient(180deg, rgba(1,8,16,1) 0%, rgba(2,13,26,0.95) 100%);
+      overflow:hidden;
+    }
+    .features::before {
+      content:''; position:absolute; inset:0;
+      background-image:linear-gradient(rgba(0,208,132,0.03) 1px,transparent 1px), linear-gradient(90deg,rgba(0,208,132,0.03) 1px,transparent 1px);
+      background-size:50px 50px;
+      mask-image:radial-gradient(ellipse 80% 100% at 50% 50%, black 10%, transparent 80%);
+      z-index:0; pointer-events:none;
+    }
+    .features-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; max-width:1200px; margin:0 auto; }
+    .feature-card { padding:48px; transition:all 0.4s ease; display:flex; flex-direction:column; justify-content:space-between; min-height:280px; position:relative; overflow:hidden; }
+    .feature-card::after { content:''; position:absolute; top:0; left:0; right:0; height:1px; background:linear-gradient(90deg,transparent,var(--accent-1),transparent); opacity:0; transition:opacity 0.4s; }
+    .feature-card:hover::after { opacity:1; }
+    .feature-card:hover { background:rgba(0,208,132,0.06); border-color:rgba(0,208,132,0.3); transform:translateY(-5px); box-shadow:0 20px 50px rgba(0,0,0,0.5),0 0 60px rgba(0,208,132,0.08),inset 0 0 0 1px rgba(0,208,132,0.08); }
+    .feature-icon { width:64px; height:64px; background:rgba(0,208,132,0.08); border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:28px; margin-bottom:32px; border:1px solid rgba(0,208,132,0.2); box-shadow:0 0 20px rgba(0,208,132,0.1); }
+    .feature-card h3 { font-family:var(--font-head); font-size:24px; font-weight:700; margin-bottom:12px; color:var(--text-main); }
+    .feature-card p { font-size:15px; color:var(--text-muted); line-height:1.7; }
+
+    /* ===== PRODUCTS SECTION ===== */
+.products{
+
+padding:140px 5%;
+
+position:relative;
+
+background:
+linear-gradient(
+rgba(255,255,255,0.93),
+rgba(255,255,255,0.95)
+),
+
+url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1920&auto=format&fit=crop');
+
+background-size:cover;
+
+background-position:center;
+
+background-attachment:fixed;
+
+overflow:hidden;
+}
+    /* Products section tag override for white bg */
+    .products .section-tag {
+      background:rgba(0,208,132,0.1);
+      border:1px solid rgba(0,208,132,0.4);
+      color:#007A4E;
+    }
+    .products .section-tag::after { background:#ffffff; }
+
+    /* Products h2 — "ELITE" solid dark, "PRODUCTS" green accent */
+    .products .section-header h2 {
+      font-family: var(--font-teko);
+      font-size: clamp(48px, 7vw, 96px);
+      font-weight: 700;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      line-height: 1.0;
+      color: #021B3A;           /* "ELITE" = dark navy, solid, VISIBLE */
+      -webkit-text-stroke: 0px;
+    }
+    .products .section-header h2 .accent-text {
+      color: #00A86B;  
+font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
+      -webkit-text-stroke: 0px;
+      text-shadow: none;
+    }
+    .products .section-header p { color:#475569; }
+
+    /* Product grid */
+    .product-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:32px; max-width:1400px; margin:0 auto; }
+
+    /* Product cards — dark glass on white background */
+    .product-card {
+      padding:12px; position:relative; overflow:hidden;
+      display:flex; flex-direction:column;
+      background:linear-gradient(160deg, rgba(2,27,58,0.92) 0%, rgba(1,12,26,0.96) 45%, rgba(0,6,16,0.98) 100%);
+      backdrop-filter:blur(15px); -webkit-backdrop-filter:blur(15px);
+      border:1px solid rgba(0,208,132,0.22);
+      border-radius:24px;
+      box-shadow:0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(0,208,132,0.12), inset 0 -1px 0 rgba(0,0,0,0.35);
+      transition:all 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+    .product-card:hover { transform:translateY(-8px); border-color:rgba(0,255,159,0.42); box-shadow:0 22px 55px rgba(0,0,0,0.55),0 0 50px rgba(0,208,132,0.12),inset 0 1px 0 rgba(0,208,132,0.2); }
+
+    .product-img-wrap { width:100%; aspect-ratio:1/1; background-color:#ffffff; border-radius:16px; padding:12px; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; flex-shrink:0; border:1px solid rgba(0,0,0,0.06); isolation:isolate; }
+    .product-img-wrap img { width:100%; height:100%; object-fit:contain; filter:brightness(1.08) contrast(1.08) drop-shadow(0 12px 30px rgba(0,0,0,0.15)); transition:transform 0.5s ease; }
+    .product-card:hover .product-img-wrap img { transform:scale(1.08) translateY(-10px); }
+
+    .product-body { padding:24px 18px 22px; display:flex; flex-direction:column; flex-grow:1; z-index:1; min-width:0; text-align:left; }
+    .product-sub { font-size:11px; font-weight:700; color:var(--accent-1); text-transform:uppercase; letter-spacing:2px; margin-bottom:8px; }
+    .product-body h3 { font-family:var(--font-head); font-size:26px; font-weight:800; line-height:1.1; margin-bottom:14px; color:#ffffff; }
+    .product-body p { font-size:14px; color:rgba(200,220,240,0.75); line-height:1.7; margin-bottom:20px; flex-grow:1; }
+    .product-benefits { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+    .benefit-tag { font-size:11px; font-weight:600; padding:6px 14px; background:rgba(0,208,132,0.08); border:1px solid rgba(0,208,132,0.2); border-radius:100px; color:rgba(200,230,220,0.85); }
+    .btn-outline { width:100%; padding:14px; text-align:center; border:1px solid rgba(0,208,132,0.3); border-radius:12px; color:#ffffff; background:rgba(0,208,132,0.06); font-family:var(--font-head); font-weight:700; font-size:14px; letter-spacing:1px; text-transform:uppercase; text-decoration:none; transition:all 0.3s; cursor:pointer; }
+    .product-card:hover .btn-outline { background:var(--accent-1); color:#020d1a; border-color:var(--accent-1); }
+
+    /* ===== ABOUT ===== */
+    .about {
+      padding:140px 5%; position:relative;
+      background:
+        linear-gradient(to right, rgba(1,4,8,0.96) 0%, rgba(2,13,26,0.85) 100%),
+        url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat fixed;
+      overflow:hidden;
+    }
+    .about::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 30% 50%, rgba(0,208,132,0.12) 0%, transparent 60%),radial-gradient(circle at 70% 80%, rgba(0,0,0,0.8) 0%, transparent 100%); filter:blur(40px); opacity:0.8; z-index:0; pointer-events:none; }
+    .about-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; position:relative; z-index:1; }
+    .about-text h2 { margin-bottom:24px; }
+    .about-text p { color:var(--text-muted); font-size:16px; margin-bottom:20px; }
+    .about-points { list-style:none; margin:32px 0 40px; }
+    .about-points li { display:flex; align-items:center; gap:16px; padding:16px 0; border-bottom:1px solid var(--border-light); font-weight:500; }
+    .point-icon { width:24px; height:24px; background:var(--accent-1); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#000; font-size:12px; }
+    .about-image { position:relative; border-radius:30px; overflow:hidden; border:1px solid var(--border-light); }
+    .about-image img { width:100%; display:block; filter:grayscale(100%) contrast(1.2); transition:filter 0.5s; }
+    .about-image:hover img { filter:grayscale(0%) contrast(1.1); }
+    .about-badge { position:absolute; bottom:30px; left:-30px; width:160px; height:160px; background:var(--bg-main); border:1px solid var(--border-light); border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 20px 40px rgba(0,0,0,0.5); }
+    .about-badge .big { font-family:var(--font-head); font-size:48px; font-weight:900; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+    .about-badge .small { font-size:10px; font-weight:700; text-transform:uppercase; color:var(--text-muted); letter-spacing:2px; }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials { padding:140px 5%; position:relative; background:linear-gradient(180deg, rgba(1,10,20,1) 0%, rgba(2,13,26,0.95) 100%); }
+    .testimonial-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px,1fr)); gap:24px; max-width:1200px; margin:0 auto; }
+    .test-card { padding:40px; display:flex; flex-direction:column; transition:transform 0.4s; }
+    .test-card:hover { transform:translateY(-5px); }
+    .stars { color:var(--accent-1); font-size:18px; margin-bottom:24px; letter-spacing:4px; }
+    .test-card p { font-size:16px; color:var(--text-main); font-style:italic; line-height:1.8; margin-bottom:32px; flex-grow:1; }
+    .test-author { display:flex; align-items:center; gap:16px; border-top:1px solid var(--border-light); padding-top:24px; }
+    .author-av { width:48px; height:48px; border-radius:50%; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; font-family:var(--font-head); font-weight:800; color:var(--text-main); border:1px solid var(--border-light); }
+    .author-meta .name { font-weight:600; font-size:15px; }
+    .author-meta .role { font-size:12px; color:var(--text-muted); margin-top:4px; }
+
+    /* ===== CONTACT ===== */
+    .contact { padding:140px 5%; position:relative; background:linear-gradient(135deg,#020b1a 0%,#1a022b 100%); overflow:hidden; }
+    .contact::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 10% 20%, rgba(0,255,255,0.2) 0%, transparent 40%),radial-gradient(circle at 90% 80%, rgba(0,208,132,0.15) 0%, transparent 40%),radial-gradient(circle at 50% 50%, rgba(138,43,226,0.1) 0%, transparent 60%); z-index:0; pointer-events:none; }
+    .contact::after { content:''; position:absolute; inset:0; background:linear-gradient(rgba(0,255,255,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,255,0.03) 1px,transparent 1px); background-size:60px 60px; mask-image:radial-gradient(circle at 50% 50%, black 20%, transparent 80%); z-index:1; pointer-events:none; }
+    .contact-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr 1.2fr; gap:80px; position:relative; z-index:2; }
+    .contact-info h2 { margin-bottom:24px; }
+    .contact-info p { color:var(--text-muted); margin-bottom:48px; font-size:16px; }
+    .c-item { display:flex; align-items:center; gap:20px; padding:24px; margin-bottom:20px; background:rgba(3,27,58,0.6); border:1px solid rgba(0,208,132,0.2); border-radius:20px; transition:all 0.4s cubic-bezier(0.16,1,0.3,1); box-shadow:0 10px 30px rgba(0,0,0,0.3); }
+    .c-item:hover { background:rgba(0,208,132,0.08); border-color:var(--accent-1); transform:translateX(10px); box-shadow:0 0 30px rgba(0,208,132,0.15); }
+    .c-icon { width:56px; height:56px; border-radius:16px; background:rgba(255,255,255,0.03); border:1px solid var(--border-light); display:flex; align-items:center; justify-content:center; font-size:20px; }
+    .c-text .label { font-size:11px; font-weight:700; text-transform:uppercase; color:var(--accent-1); letter-spacing:2px; margin-bottom:6px; }
+    .c-text .val { font-size:16px; font-weight:500; }
+    .contact-form { padding:48px; background:rgba(3,27,58,0.4); border:1px solid rgba(0,208,132,0.2); border-radius:30px; box-shadow:0 20px 50px rgba(0,0,0,0.4),inset 0 0 40px rgba(0,208,132,0.02); position:relative; }
+    .contact-form::before { content:''; position:absolute; top:-2px; left:-2px; right:-2px; bottom:-2px; background:linear-gradient(135deg,var(--accent-1),transparent,var(--accent-2)); border-radius:32px; z-index:-1; opacity:0.15; }
+    .contact-form h3 { font-family:var(--font-head); font-size:32px; font-weight:800; margin-bottom:32px; color:#fff; }
+    .form-group { margin-bottom:24px; }
+    .form-group label { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:2px; color:var(--text-muted); margin-bottom:10px; }
+    .form-group input, .form-group select, .form-group textarea { width:100%; padding:16px 20px; background:rgba(0,0,0,0.3); border:1px solid var(--border-light); border-radius:12px; color:var(--text-main); font-family:var(--font-body); font-size:15px; transition:all 0.3s; outline:none; }
+    .form-group select option { background:var(--bg-main); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--accent-1); background:rgba(0,0,0,0.6); box-shadow:0 0 0 4px rgba(0,208,132,0.1); }
+    .form-group textarea { resize:vertical; min-height:120px; }
+    .wa-btn { width:100%; padding:18px; display:flex; align-items:center; justify-content:center; gap:12px; background:var(--accent-1); color:#fff; border:none; border-radius:12px; font-family:var(--font-head); font-weight:800; font-size:16px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; transition:all 0.3s; }
+    .wa-btn:hover { background:var(--accent-2); transform:translateY(-2px); box-shadow:0 10px 25px rgba(0,208,132,0.4); }
+
+    /* ===== FOOTER ===== */
+    footer { padding:80px 5% 40px; border-top:1px solid rgba(0,208,132,0.15); background:#010409; position:relative; overflow:hidden; }
+    footer::before { content:''; position:absolute; top:0; left:0; width:100%; height:1px; background:linear-gradient(90deg,transparent,rgba(0,208,132,0.6),transparent); }
+    .footer-inner { max-width:1200px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr; gap:60px; margin-bottom:60px; }
+    .f-brand p { color:var(--text-muted); margin-top:24px; max-width:300px; }
+    .f-col h4 { font-family:var(--font-head); font-size:14px; font-weight:800; letter-spacing:2px; text-transform:uppercase; color:var(--text-main); margin-bottom:24px; }
+    .f-col ul { list-style:none; }
+    .f-col ul li { margin-bottom:16px; }
+    .f-col ul li a { color:var(--text-muted); text-decoration:none; font-size:14px; transition:color 0.3s; }
+    .f-col ul li a:hover { color:var(--accent-1); }
+    .f-bottom { max-width:1200px; margin:0 auto; padding-top:32px; border-top:1px solid var(--border-light); display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--text-muted); }
+    .f-bottom span { color:var(--text-main); font-weight:600; }
+
+    /* ===== FLOATING CHAT ===== */
+    .float-wa { position:fixed; bottom:30px; right:30px; width:60px; height:60px; background:var(--accent-1); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:28px; color:white; text-decoration:none; z-index:999; box-shadow:0 10px 30px rgba(0,208,132,0.4); transition:transform 0.3s cubic-bezier(0.16,1,0.3,1); }
+    .float-wa:hover { transform:scale(1.1) translateY(-4px); box-shadow:0 15px 40px rgba(0,208,132,0.6); }
+
+    /* ===== SECTION DIVIDER ===== */
+    .section-divider { height:4px; background:linear-gradient(90deg,transparent,var(--accent-1),var(--accent-2),var(--accent-1),transparent); background-size:200% 100%; animation:waveShift 4s linear infinite; }
+    @keyframes waveShift { 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
+
+    /* ===== SCROLL PROGRESS ===== */
+    #scroll-progress { position:fixed; top:0; left:0; height:3px; width:0%; background:linear-gradient(90deg,var(--accent-1),var(--accent-2)); z-index:10000; transition:width 0.1s linear; box-shadow:0 0 10px rgba(0,208,132,0.6); }
+
+    /* ===== SCROLL ANIMATIONS ===== */
+    .reveal-up { opacity:0; transform:translateY(40px); transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-left { opacity:0; transform:translateX(-40px); transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-in { opacity:0; transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1); }
+    .reveal-up.visible, .reveal-left.visible { opacity:1; transform:translate(0,0); }
+    .reveal-in.visible { opacity:1; }
+
+    .text-split-word { display:inline-block; overflow:hidden; vertical-align:bottom; }
+    .text-split-word .word-inner { display:inline-block; transform:translateY(110%); opacity:0; transition:transform 0.75s cubic-bezier(0.16,1,0.3,1),opacity 0.75s ease; }
+    .text-split-word.word-visible .word-inner { transform:translateY(0); opacity:1; }
+
+    .product-card.card-hidden { opacity:0; transform:translateY(50px) scale(0.96); }
+    .product-card.card-visible { opacity:1; transform:translateY(0) scale(1); transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+
+    .feature-card.feat-hidden { opacity:0; transform:translateX(-60px); }
+    .feature-card:nth-child(even).feat-hidden { transform:translateX(60px); }
+    .feature-card.feat-visible { opacity:1; transform:translateX(0); transition:opacity 0.8s cubic-bezier(0.16,1,0.3,1),transform 0.8s cubic-bezier(0.16,1,0.3,1); }
+
+    @keyframes glitchFlash {
+      0%,100% { clip-path:none; transform:none; }
+      20% { clip-path:inset(30% 0 55% 0); transform:translate(-3px,0); }
+      40% { clip-path:inset(60% 0 10% 0); transform:translate(3px,0); }
+      60% { clip-path:none; transform:none; }
+    }
+    .hero h1 .accent-text.glitch-active { animation:glitchFlash 0.35s steps(1) forwards; }
+
+    /* ===== ENQUIRE MODAL ===== */
+    .eq-overlay { display:none; position:fixed; inset:0; z-index:99999; background:rgba(1,8,20,0.75); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); align-items:center; justify-content:center; padding:20px; animation:overlayFadeIn 0.25s ease forwards; }
+    .eq-overlay.open { display:flex; }
+    @keyframes overlayFadeIn { from{opacity:0;} to{opacity:1;} }
+    .eq-box { position:relative; max-width:460px; width:100%; padding:48px 40px 40px; border-radius:28px; text-align:center; animation:modalSlideUp 0.4s cubic-bezier(0.16,1,0.3,1) forwards; border:1px solid rgba(0,208,132,0.25); background:linear-gradient(160deg,rgba(2,20,45,0.95) 0%,rgba(1,10,22,0.98) 100%); }
+    @keyframes modalSlideUp { from{opacity:0;transform:translateY(40px) scale(0.96);} to{opacity:1;transform:translateY(0) scale(1);} }
+    .eq-close { position:absolute; top:18px; right:18px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); color:var(--text-muted); width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; transition:all 0.2s; }
+    .eq-close:hover { background:rgba(255,255,255,0.12); color:#fff; }
+    .eq-icon { font-size:48px; margin-bottom:20px; filter:drop-shadow(0 0 20px rgba(0,208,132,0.5)); }
+    .eq-title { font-family:var(--font-head); font-size:22px; font-weight:800; line-height:1.3; margin-bottom:12px; color:#fff; }
+    .eq-title .accent-text { color:var(--accent-1); }
+    .eq-subtitle { font-size:14px; color:var(--text-muted); margin-bottom:28px; line-height:1.6; }
+    .eq-email-box { display:flex; align-items:center; justify-content:space-between; gap:12px; background:rgba(0,208,132,0.06); border:1px solid rgba(0,208,132,0.25); border-radius:14px; padding:14px 18px; margin-bottom:24px; }
+    .eq-email-text { font-family:var(--font-head); font-size:15px; font-weight:600; color:var(--accent-1); letter-spacing:0.5px; }
+    .eq-copy-btn { display:flex; align-items:center; gap:6px; background:rgba(0,208,132,0.12); border:1px solid rgba(0,208,132,0.3); color:var(--accent-1); border-radius:8px; padding:7px 14px; font-size:13px; font-weight:600; cursor:pointer; transition:all 0.2s; white-space:nowrap; font-family:var(--font-body); }
+    .eq-copy-btn:hover { background:rgba(0,208,132,0.22); }
+    .eq-copy-btn.copied { background:rgba(0,208,132,0.25); color:var(--accent-2); border-color:var(--accent-2); }
+    .eq-actions { display:flex; flex-direction:column; gap:12px; margin-bottom:24px; }
+    .eq-btn-primary { display:flex; align-items:center; justify-content:center; gap:10px; padding:16px; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); color:#000; font-family:var(--font-head); font-weight:800; font-size:15px; letter-spacing:1px; text-transform:uppercase; text-decoration:none; border-radius:14px; border:none; cursor:pointer; transition:all 0.3s; box-shadow:0 8px 25px rgba(0,208,132,0.3); }
+    .eq-btn-primary:hover { transform:translateY(-2px); box-shadow:0 14px 35px rgba(0,208,132,0.45); }
+    .eq-btn-secondary { padding:14px; background:transparent; border:1px solid rgba(255,255,255,0.12); color:var(--text-muted); font-family:var(--font-head); font-size:14px; font-weight:600; border-radius:14px; cursor:pointer; transition:all 0.2s; }
+    .eq-btn-secondary:hover { background:rgba(255,255,255,0.05); color:#fff; }
+    .eq-note { font-size:13px; color:var(--text-muted); }
+    .eq-note a { color:var(--accent-1); text-decoration:underline; }
+
+    /* ===== RESPONSIVE ===== */
+    @media(max-width:1024px) {
+      .features-grid { grid-template-columns:1fr; }
+      .about-inner, .contact-inner { grid-template-columns:1fr; gap:60px; }
+      .about-badge { display:none; }
+      .footer-inner { grid-template-columns:1fr 1fr; }
+      .hero-bottom-bar { position:relative; flex-direction:column; gap:32px; padding:32px 5%; border-top:none; background:transparent; backdrop-filter:none; }
+      .hero-stats { flex-wrap:wrap; justify-content:center; }
+    }
+    @media(max-width:768px) {
+      nav { padding:10px 15px; width:92%; top:10px; }
+      .logo-icon { width:36px; height:36px; font-size:16px; }
+      .logo-text span:first-child { font-size:18px; }
+      .menu-toggle { display:flex; }
+      nav ul { position:absolute; top:100%; left:0; width:100%; background:rgba(2,9,20,0.98); backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px); flex-direction:column; align-items:center; padding:30px 0; gap:15px; border-radius:24px; border:1px solid var(--border-light); transform:translateY(-20px); opacity:0; visibility:hidden; transition:all 0.4s cubic-bezier(0.16,1,0.3,1); box-shadow:0 30px 60px rgba(0,0,0,0.8); }
+      nav ul.active { transform:translateY(15px); opacity:1; visibility:visible; }
+      nav ul li a { font-size:16px; padding:12px 25px; width:80%; text-align:center; }
+      .nav-cta { width:80% !important; text-align:center; }
+      .hero { padding:140px 5% 60px; }
+      .hero-content h1 { font-size: clamp(52px, 14vw, 90px); }
+      .hero p { margin-bottom:32px; padding:0 10px; }
+      .hero-actions { flex-direction:column; width:100%; gap:15px; }
+      .hero-actions a { width:100%; justify-content:center; }
+      .hero-stats { gap:20px; }
+      .stat-item { flex-direction:column; gap:8px; text-align:center; }
+      .stat-item .num { font-size:28px; }
+      .stat-item .label { font-size:9px; max-width:none; }
+      .stat-item.separator { display:none; }
+      .section-header { margin-bottom:50px; }
+      .feature-card { padding:30px; min-height:auto; }
+      .product-grid { grid-template-columns:1fr; gap:24px; }
+      .about { padding:80px 5%; }
+      .about-text p { font-size:14px; }
+      .contact { padding:80px 5%; }
+      .contact-inner { gap:40px; }
+      .contact-form { padding:30px 20px; }
+      .contact-form h3 { font-size:24px; }
+      .footer-inner { grid-template-columns:1fr; gap:40px; text-align:center; }
+      .f-brand p { margin-left:auto; margin-right:auto; }
+      .f-bottom { flex-direction:column; gap:16px; text-align:center; }
+      .eq-box { padding:40px 24px 32px; }
+      .eq-email-text { font-size:13px; }
+    }
+    @media(max-width:480px) {
+      .hero-content h1 { font-size: clamp(40px, 13vw, 64px); }
+      .hero-stats { grid-template-columns:1fr 1fr; display:grid; width:100%; }
+      .stat-item { padding:15px; background:rgba(255,255,255,0.03); border-radius:15px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="scroll-progress"></div>
+
+  <div class="mesh-bg">
+    <div class="mesh-orb orb-1"></div>
+    <div class="mesh-orb orb-2"></div>
+    <div class="mesh-orb orb-3"></div>
+  </div>
+  <div class="noise-overlay"></div>
+
+  <a href="mailto:info@aadyinpharma.com" class="float-wa" target="_blank">💬</a>
+
+  <nav id="navbar" class="glass-panel">
+    <a href="#home" class="logo">
+      <div class="logo-icon">💊</div>
+      <div class="logo-text">
+        <span>AADYIN PHARMA</span>
+        <span>Elite Performance</span>
+      </div>
+    </a>
+    <div class="menu-toggle" id="mobile-menu">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#products">Products</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="mailto:info@aadyinpharma.com" class="nav-cta" target="_blank">Order Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="section-tag">Premium Gym Nutrition</div>
+      <h1>
+        <span class="outline-text">FUEL YOUR</span>
+        <span class="gradient-text">STRENGTH.</span>
+        <span class="accent-text">POWER YOUR LIFE.</span>
+      </h1>
+      <p>Elite pharmaceutical-grade supplements engineered for serious athletes, bodybuilders &amp; fitness warriors across India.</p>
+    </div>
+
+    <div class="hero-bottom-bar">
+      <div class="hero-actions">
+        <a href="#products" class="btn-primary">Explore Products</a>
+        <a href="mailto:info@aadyinpharma.com" class="btn-secondary" target="_blank">📧 Email Us</a>
+      </div>
+      <div class="hero-stats">
+<h3 id="visitor-count">500</h3>
+<p>Visitors</p>
+        <div class="stat-item separator"></div>
+        <div class="stat-item"><div class="num">1000+</div><div class="label">Products Sold</div></div>
+        <div class="stat-item separator"></div>
+        <div class="stat-item"><div class="num">10+</div><div class="label">Years Experience</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee-track" aria-hidden="true">
+    <div class="marquee-inner">
+      <span>Premium Performance</span><span>Pharmaceutical Grade</span><span>Science Backed</span>
+      <span>500+ Athletes</span><span>Elite Results</span><span>AADYIN PHARMA</span>
+      <span>Premium Performance</span><span>Pharmaceutical Grade</span><span>Science Backed</span>
+      <span>500+ Athletes</span><span>Elite Results</span><span>AADYIN PHARMA</span>
+    </div>
+  </div>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <div class="section-tag">Why AADYIN</div>
+      <h2>BUILT FOR <span class="accent-text">WARRIORS</span></h2>
+      <p>Everything we make is engineered with one goal — maximum performance, zero compromise.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card glass-panel">
+        <div class="feature-icon">🧬</div>
+        <h3>Pharmaceutical Grade</h3>
+        <p>Every product is formulated with pharmaceutical-grade raw ingredients for purity, potency and consistent results.</p>
+      </div>
+      <div class="feature-card glass-panel">
+        <div class="feature-icon">⚡</div>
+        <h3>Science-Backed Formula</h3>
+        <p>Our compounds are developed with science-backed research for real, measurable performance gains in the gym.</p>
+      </div>
+      <div class="feature-card glass-panel">
+        <div class="feature-icon">🏆</div>
+        <h3>Trusted by Athletes</h3>
+        <p>500+ satisfied clients — from amateur gym-goers to professional competitive bodybuilders trust AADYIN.</p>
+      </div>
+      <div class="feature-card glass-panel">
+        <div class="feature-icon">🔒</div>
+        <h3>100% Authentic</h3>
+        <p>Genuine products only. Zero counterfeits, zero compromise on quality — your safety is our commitment.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== PRODUCTS ===== -->
+  <section class="products" id="products">
+    <div class="section-header">
+      <div class="section-tag">Our Lineup</div>
+      <h2>ELITE <span class="accent-text">PRODUCTS</span></h2>
+      <p>Premium anabolic compounds and performance ingredients for serious results.</p>
+    </div>
+
+    <div class="product-grid" id="card-container">
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/whey-protein.png" alt="Whey Protein"></div>
+        <div class="product-body">
+          <div class="product-sub">Added Isolate</div>
+          <h3>WHEY PROTEIN</h3>
+          <p>Whey isolate enhanced for superior gains. Great for post-workout recovery. 25g protein per scoop.</p>
+          <div class="product-benefits"><span class="benefit-tag">Recovery</span><span class="benefit-tag">Muscle Growth</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Whey Protein')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/whey-nitrox.png" alt="Whey NitroX"></div>
+        <div class="product-body">
+          <div class="product-sub">Added Hydrolized Whey</div>
+          <h3>WHEY NITROX</h3>
+          <p>Ultimate muscle building formula loaded with creatine, test booster and L-arginine.</p>
+          <div class="product-benefits"><span class="benefit-tag">Creatine</span><span class="benefit-tag">Test Booster</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Whey NitroX')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/classic-whey.png" alt="Classic Whey"></div>
+        <div class="product-body">
+          <div class="product-sub">Classic Formula</div>
+          <h3>CLASSIC WHEY</h3>
+          <p>Experience the power of premium protein supplements crafted to fuel your body and accelerate recovery.</p>
+          <div class="product-benefits"><span class="benefit-tag">Protein</span><span class="benefit-tag">Endurance</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Classic Whey')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/devil-rush.png" alt="Devil Rush"></div>
+        <div class="product-body">
+          <div class="product-sub">Super Dosed Pre-Workout</div>
+          <h3>DEVIL RUSH</h3>
+          <p>Ignites energy levels, giving you the drive to push through the toughest workouts.</p>
+          <div class="product-benefits"><span class="benefit-tag">Energy</span><span class="benefit-tag">Focus</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Devil Rush')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/eaas-bcaa.png" alt="EAAs + BCAA"></div>
+        <div class="product-body">
+          <div class="product-sub">Complete Amino Hydration</div>
+          <h3>EAAs + BCAA</h3>
+          <p>Formulated to support muscle growth, enhance recovery, and boost overall performance.</p>
+          <div class="product-benefits"><span class="benefit-tag">Hydration</span><span class="benefit-tag">Recovery</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('EAAs + BCAA')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/creatine-mono.png" alt="Creatine"></div>
+        <div class="product-body">
+          <div class="product-sub">Micronized Powder</div>
+          <h3>CREATINE MONO</h3>
+          <p>Micronized creatine powder to increase endurance, muscle mass, and strength during high-intensity exercise.</p>
+          <div class="product-benefits"><span class="benefit-tag">Strength</span><span class="benefit-tag">Endurance</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Creatine Monohydrate')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/test-pro.png" alt="Test Pro"></div>
+        <div class="product-body">
+          <div class="product-sub">Testosterone Booster</div>
+          <h3>TEST PRO</h3>
+          <p>The complete non hormonal stack. Muscle, strength, recovery, increase libido, hormone balance.</p>
+          <div class="product-benefits"><span class="benefit-tag">Hormone Balance</span><span class="benefit-tag">Strength</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Test Pro')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/pro-cuts.png" alt="Pro Cuts"></div>
+        <div class="product-body">
+          <div class="product-sub">Fat Burner</div>
+          <h3>PRO CUTS</h3>
+          <p>Fat Burning &amp; Thermogenic. Appetite suppression, decreased water retention, elevated calorie burning.</p>
+          <div class="product-benefits"><span class="benefit-tag">Thermogenic</span><span class="benefit-tag">Fat Loss</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Pro Cuts')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/andro-stack.png" alt="Andro Stack"></div>
+        <div class="product-body">
+          <div class="product-sub">Strength Builder</div>
+          <h3>ANDRO STACK</h3>
+          <p>The complete hormone stack. Nutrient Partitioning, Protein synthesis, Anabolism, Anti catabolism.</p>
+          <div class="product-benefits"><span class="benefit-tag">Anabolism</span><span class="benefit-tag">Protein Synthesis</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Andro Stack')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/citruline-arginine.png" alt="Citruline + Arginine"></div>
+        <div class="product-body">
+          <div class="product-sub">Performance</div>
+          <h3>CITRULINE + ARGININE</h3>
+          <p>Elevate your workout performance. Formulated to support your fitness goals and accelerate results.</p>
+          <div class="product-benefits"><span class="benefit-tag">Performance</span><span class="benefit-tag">Pump</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Citruline + Arginine')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/boldi-tech.png" alt="Boldi-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">300MG/ML Boldenone Undecylenate</div>
+          <h3>BOLDI-TECH</h3>
+          <p>Balanced anabolic and androgenic properties. Promotes lean and dense muscle growth while raising appetite.</p>
+          <div class="product-benefits"><span class="benefit-tag">Lean Muscle</span><span class="benefit-tag">Increased Appetite</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Boldi-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/deca-tech.png" alt="Deca-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">300MG/ML Nandrolone Decanoate</div>
+          <h3>DECA-TECH</h3>
+          <p>Classic drug for rapid muscle bulk gain. Ideal for long cycles with steady release for huge growth.</p>
+          <div class="product-benefits"><span class="benefit-tag">Bulk Gain</span><span class="benefit-tag">Steady Release</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Deca-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/bulk-tech.png" alt="Bulk-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">500MG/ML Nandrolone / Test / Tren</div>
+          <h3>BULK-TECH</h3>
+          <p>Extreme gain of muscle in bulk. Extremely strong formula engineered exclusively for serious athletes.</p>
+          <div class="product-benefits"><span class="benefit-tag">Extreme Bulk</span><span class="benefit-tag">Raw Power</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Bulk-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/cut-tech.png" alt="Cut-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">200MG/ML Test / Tren / Mast</div>
+          <h3>CUT-TECH</h3>
+          <p>A unique mixture to accelerate loss of body weight and get impeccably ripped.</p>
+          <div class="product-benefits"><span class="benefit-tag">Fat Loss</span><span class="benefit-tag">Ripped Muscle</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Cut-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/npp.png" alt="NPP"></div>
+        <div class="product-body">
+          <div class="product-sub">100MG/ML Nandrolone Phenylpropionate</div>
+          <h3>NPP</h3>
+          <p>A long-lasting prodrug that helps gain masculinity and lean muscle. Convenient for usage with quick results.</p>
+          <div class="product-benefits"><span class="benefit-tag">Lean Muscle</span><span class="benefit-tag">Masculinity</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('NPP')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/hard-tech.png" alt="Hard-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">500MG/ML Test / NPP / Tren</div>
+          <h3>HARD-TECH</h3>
+          <p>An extremely strong formula engineered exclusively for gaining pure lean muscle mass and ultimate strength.</p>
+          <div class="product-benefits"><span class="benefit-tag">Lean Mass</span><span class="benefit-tag">Strength</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Hard-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/trt_white_bg.png" alt="TRT"></div>
+        <div class="product-body">
+          <div class="product-sub">200MG/ML Test / Methenolone</div>
+          <h3>TRT</h3>
+          <p>Improves energy, bone density, and muscle mass. Enhances well-being, mood, and overall vitality.</p>
+          <div class="product-benefits"><span class="benefit-tag">Vitality</span><span class="benefit-tag">Energy</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('TRT')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_10_nobg.png" alt="Winni-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">100MG/ML Stanozolol</div>
+          <h3>WINNI-TECH</h3>
+          <p>Fast-acting anabolic for raw power and speed. Gets you ripped with zero water retention.</p>
+          <div class="product-benefits"><span class="benefit-tag">Power</span><span class="benefit-tag">Speed</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Winni-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_11_nobg.png" alt="Cypo-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">250MG/ML Testosterone Cypionate</div>
+          <h3>CYPO-TECH</h3>
+          <p>Highly anabolic and androgenic. Provides dramatic increases in muscle size and strength.</p>
+          <div class="product-benefits"><span class="benefit-tag">Muscle Size</span><span class="benefit-tag">Strength</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Cypo-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_12_nobg.png" alt="Susta-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">250MG/ML Testosterone Mix</div>
+          <h3>SUSTA-TECH</h3>
+          <p>Perfectly balanced blend for steady testosterone release. Maximizes muscle growth and recovery.</p>
+          <div class="product-benefits"><span class="benefit-tag">Steady Release</span><span class="benefit-tag">Recovery</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Susta-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_13_nobg.png" alt="Prop-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">100MG/ML Testosterone Propionate</div>
+          <h3>PROP-TECH</h3>
+          <p>Fast-acting testosterone ester. Ideal for short cycles to gain rapid strength and muscle mass.</p>
+          <div class="product-benefits"><span class="benefit-tag">Rapid Strength</span><span class="benefit-tag">Fast Acting</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Prop-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_14_nobg.png" alt="Testo-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">250MG/ML Testosterone Enanthate</div>
+          <h3>TESTO-TECH</h3>
+          <p>The ultimate foundational steroid. Dramatically boosts strength, muscle mass, and overall performance.</p>
+          <div class="product-benefits"><span class="benefit-tag">Foundation</span><span class="benefit-tag">Mass</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Testo-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_15_nobg.png" alt="Mast-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">100MG/ML Drostanolone Propionate</div>
+          <h3>MAST-TECH</h3>
+          <p>Potent androgen for a hard, ripped look. Essential for pre-contest prep and intense cutting phases.</p>
+          <div class="product-benefits"><span class="benefit-tag">Hard Look</span><span class="benefit-tag">Cutting</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Mast-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_16_nobg.png" alt="Prima-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">100MG/ML Methenolone Enanthate</div>
+          <h3>PRIMA-TECH</h3>
+          <p>Mild but effective anabolic for lean muscle tissue. Excellent for bridging and preserving gains.</p>
+          <div class="product-benefits"><span class="benefit-tag">Lean Tissue</span><span class="benefit-tag">Preservation</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Prima-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_17_nobg.png" alt="Tren A-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">100MG/ML Trenbolone Acetate</div>
+          <h3>TREN A-TECH</h3>
+          <p>Incredibly powerful short-acting compound. Extreme muscle hardness and rapid fat loss.</p>
+          <div class="product-benefits"><span class="benefit-tag">Hardness</span><span class="benefit-tag">Fat Loss</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Tren A-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_18_nobg.png" alt="Tren E-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">200MG/ML Trenbolone Enanthate</div>
+          <h3>TREN E-TECH</h3>
+          <p>Long-acting trenbolone for massive strength and size. Transforms your physique with dry gains.</p>
+          <div class="product-benefits"><span class="benefit-tag">Massive Size</span><span class="benefit-tag">Dry Gains</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Tren E-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_19_nobg.png" alt="Tren H-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">76.5MG/ML Trenbolone Hexahydro</div>
+          <h3>TREN H-TECH</h3>
+          <p>The legendary Parabolan ester. Exceptional for extreme conditioning and relentless power.</p>
+          <div class="product-benefits"><span class="benefit-tag">Conditioning</span><span class="benefit-tag">Power</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Tren H-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_21_nobg.png" alt="Andro-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">50MG Oxymetholone Tablets</div>
+          <h3>ANDRO-TECH</h3>
+          <p>One of the strongest oral steroids available. Unmatched for explosive size and raw power.</p>
+          <div class="product-benefits"><span class="benefit-tag">Explosive Size</span><span class="benefit-tag">Oral</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Andro-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_22_nobg.png" alt="Diana-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">10MG Methandienone Tablets</div>
+          <h3>DIANA-TECH</h3>
+          <p>The classic bulking oral. Kicks off your cycle with fast, noticeable gains in muscle and strength.</p>
+          <div class="product-benefits"><span class="benefit-tag">Classic Bulk</span><span class="benefit-tag">Fast Gains</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Diana-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_23_nobg.png" alt="Armi-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">1MG Anastrozole Tablets</div>
+          <h3>ARMI-TECH</h3>
+          <p>Powerful aromatase inhibitor. Controls estrogen levels and prevents unwanted side effects during cycle.</p>
+          <div class="product-benefits"><span class="benefit-tag">Estrogen Control</span><span class="benefit-tag">Protection</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Armi-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_24_nobg.png" alt="Cloma-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">50MG Clomiphene Citrate Tablets</div>
+          <h3>CLOMA-TECH</h3>
+          <p>Essential PCT compound. Restores natural hormone production safely and effectively.</p>
+          <div class="product-benefits"><span class="benefit-tag">PCT</span><span class="benefit-tag">Recovery</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Cloma-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_25_nobg.png" alt="Provi-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">25MG Masterolone Tablets</div>
+          <h3>PROVI-TECH</h3>
+          <p>Strong androgenic oral. Enhances the effects of other steroids and promotes a dense, hard look.</p>
+          <div class="product-benefits"><span class="benefit-tag">Density</span><span class="benefit-tag">Synergy</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Provi-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_26_nobg.png" alt="Nolva-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">20MG Tamoxifen Citrate Tablets</div>
+          <h3>NOLVA-TECH</h3>
+          <p>Reliable SERM for post-cycle therapy. Crucial for estrogen blocking and restoring balance.</p>
+          <div class="product-benefits"><span class="benefit-tag">SERM</span><span class="benefit-tag">Balance</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Nolva-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_27_nobg.png" alt="Clen-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">40MCG Clenbuterol HCL Tablets</div>
+          <h3>CLEN-TECH</h3>
+          <p>Extremely potent thermogenic. Rapidly burns fat while preserving hard-earned muscle tissue.</p>
+          <div class="product-benefits"><span class="benefit-tag">Thermogenic</span><span class="benefit-tag">Preservation</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Clen-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_28_nobg.png" alt="Stana-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">10MG Stanozolol Tablets</div>
+          <h3>STANA-TECH</h3>
+          <p>Oral Winstrol for serious cutting. Delivers lean, dry muscle without water retention.</p>
+          <div class="product-benefits"><span class="benefit-tag">Serious Cutting</span><span class="benefit-tag">Dry Muscle</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Stana-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_29_nobg.png" alt="T3"></div>
+        <div class="product-body">
+          <div class="product-sub">25MCG Liothyronine Sodium Tablets</div>
+          <h3>T3</h3>
+          <p>Powerful thyroid hormone. Dramatically increases metabolic rate for elite-level fat burning.</p>
+          <div class="product-benefits"><span class="benefit-tag">Metabolic Rate</span><span class="benefit-tag">Elite Fat Burning</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('T3')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_30_nobg.png" alt="Oxy-Tech"></div>
+        <div class="product-body">
+          <div class="product-sub">10MG Oxandrolone Tablets</div>
+          <h3>OXY-TECH</h3>
+          <p>The premium oral for lean, high-quality gains. Safe, effective, and perfect for cutting.</p>
+          <div class="product-benefits"><span class="benefit-tag">Premium Lean</span><span class="benefit-tag">Safe</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Oxy-Tech')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/puretech/page_31_nobg.png" alt="Turinabol"></div>
+        <div class="product-body">
+          <div class="product-sub">10MG Chlorodehydromethyl Testosterone</div>
+          <h3>TURINABOL</h3>
+          <p>Lean muscle builder with zero estrogen conversion. Provides solid, keepable strength gains.</p>
+          <div class="product-benefits"><span class="benefit-tag">Keepable Gains</span><span class="benefit-tag">Zero Estrogen</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Turinabol')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ===== ABOUT ===== -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-text">
+        <div class="section-tag">Our Story</div>
+        <h2>ABOUT <br><span class="accent-text">AADYIN</span><br>PHARMA</h2>
+        <p>AADYIN PHARMA is a premium gym lifestyle and performance brand dedicated to delivering the highest quality products for athletes and bodybuilders across India.</p>
+        <p>We combine cutting-edge pharmaceutical science with hardcore fitness culture to create compounds that deliver real, visible results — trusted by hundreds of serious athletes.</p>
+        <ul class="about-points">
+          <li><div class="point-icon">✓</div>10+ years in the performance supplement industry</li>
+          <li><div class="point-icon">✓</div>Pharmaceutical-grade raw materials, strictly sourced</li>
+          <li><div class="point-icon">✓</div>Expert guidance from certified fitness professionals</li>
+          <li><div class="point-icon">✓</div>500+ satisfied athletes and bodybuilders</li>
+        </ul>
+        <a href="mailto:info@aadyinpharma.com" class="btn-primary" target="_blank">Talk to an Expert</a>
+      </div>
+      <div class="about-image">
+        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=800&auto=format&fit=crop" alt="Gym">
+        <div class="about-badge">
+          <div class="big">10+</div>
+          <div class="small">Years of<br>Excellence</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="testimonials" id="testimonials">
+    <div class="section-header">
+      <div class="section-tag">Client Results</div>
+      <h2>WHAT ATHLETES <span class="accent-text">SAY</span></h2>
+      <p>Real feedback from real athletes who trust AADYIN PHARMA.</p>
+    </div>
+    <div class="testimonial-grid">
+      <div class="test-card glass-panel">
+        <div class="stars">★★★★★</div>
+        <p>"Whey Protein completely changed my physique. I gained incredible vascularity and lean muscle within 8 weeks. Quality is unmatched!"</p>
+        <div class="test-author">
+          <div class="author-av">RS</div>
+          <div class="author-meta"><div class="name">Rahul Sharma</div><div class="role">Competitive Bodybuilder • Pune</div></div>
+        </div>
+      </div>
+      <div class="test-card glass-panel">
+        <div class="stars">★★★★★</div>
+        <p>"Fast delivery, genuine product and amazing results with Whey NitroX. The team guided me perfectly through my entire cycle. Highly recommended!"</p>
+        <div class="test-author">
+          <div class="author-av">AK</div>
+          <div class="author-meta"><div class="name">Arjun Kulkarni</div><div class="role">Powerlifter • Mumbai</div></div>
+        </div>
+      </div>
+      <div class="test-card glass-panel">
+        <div class="stars">★★★★★</div>
+        <p>"Classic Whey gave me incredible joint support during my heavy lifting phase. Strength went through the roof. AADYIN is 100% legit!"</p>
+        <div class="test-author">
+          <div class="author-av">VD</div>
+          <div class="author-meta"><div class="name">Vikram Deshmukh</div><div class="role">Gym Athlete • Nashik</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <div class="contact-info">
+        <div class="section-tag">Get In Touch</div>
+        <h2>CONTACT <span class="accent-text">US</span></h2>
+        <p>Have questions? Want to order? Our team is ready to help you choose the right products for your goals.</p>
+        <div class="c-item glass-panel">
+          <div class="c-icon">📧</div>
+          <div class="c-text"><div class="label">Email</div><div class="val">info@aadyinpharma.com</div></div>
+        </div>
+        <div class="c-item glass-panel">
+          <div class="c-icon">📞</div>
+          <div class="c-text"><div class="label">Phone</div><div class="val">+91 9960583760</div></div>
+        </div>
+        <div class="c-item glass-panel">
+          <div class="c-icon">📍</div>
+          <div class="c-text"><div class="label">Location</div><div class="val">Pune, Maharashtra, India</div></div>
+        </div>
+      </div>
+
+      <div class="contact-form glass-panel">
+        <h3>SEND ENQUIRY</h3>
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" id="fname" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input type="tel" id="fphone" placeholder="+91 XXXXX XXXXX">
+        </div>
+        <div class="form-group">
+          <label>Product Interested In</label>
+          <select id="fproduct">
+            <option value="">-- Select Product --</option>
+            <option>Whey Protein</option><option>Whey NitroX</option><option>Classic Whey</option>
+            <option>Devil Rush</option><option>EAAs BCAA</option><option>Other / General Enquiry</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Your Message</label>
+          <textarea id="fmsg" placeholder="Tell us your goals, questions or requirements..."></textarea>
+        </div>
+        <button class="wa-btn" onclick="sendEmail()">📧 Send via Email</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="f-brand">
+        <a href="#home" class="logo">
+          <div class="logo-icon">💊</div>
+          <div class="logo-text"><span>AADYIN PHARMA</span><span>Elite Performance</span></div>
+        </a>
+        <p>Premium pharmaceutical-grade gym supplements and performance ingredients for serious athletes across India.</p>
+      </div>
+      <div class="f-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Products</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="#products">Whey Protein</a></li>
+          <li><a href="#products">Whey NitroX</a></li>
+          <li><a href="#products">Classic Whey</a></li>
+          <li><a href="mailto:info@aadyinpharma.com">More Products</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <p>© 2026 <span>AADYIN PHARMA</span> · All Rights Reserved</p>
+      <p>Engineered with <span>⭐</span> for Warriors · Pune, Maharashtra</p>
+    </div>
+  </footer>
+
+  <!-- ===== ENQUIRE MODAL ===== -->
+  <div id="eq-modal" class="eq-overlay" onclick="closeEnquireModal(event)">
+    <div class="eq-box glass-panel">
+      <button class="eq-close" onclick="closeEnquireModal(null,true)" aria-label="Close">✕</button>
+      <div class="eq-icon">📧</div>
+      <h3 class="eq-title">Enquire About<br><span id="eq-product-name" class="accent-text"></span></h3>
+      <p class="eq-subtitle">Reach out to us directly — we respond within 24 hours.</p>
+      <div class="eq-email-box">
+        <span class="eq-email-text">info@aadyinpharma.com</span>
+        <button class="eq-copy-btn" onclick="copyEmail()" id="eq-copy-btn" title="Copy email">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copy-label">Copy</span>
+        </button>
+      </div>
+      <div class="eq-actions">
+        <a id="eq-open-email" href="mailto:info@aadyinpharma.com" class="eq-btn-primary">Open Email App</a>
+        <button class="eq-btn-secondary" onclick="closeEnquireModal(null,true)">Cancel</button>
+      </div>
+      <p class="eq-note">Or fill the <a href="#contact" onclick="closeEnquireModal(null,true)">contact form below</a> and we'll get back to you.</p>
+    </div>
+  </div>
+
+  <script>
+    // ===== MOBILE MENU =====
+    const menuToggle = document.querySelector('#mobile-menu');
+    const navLinks   = document.querySelector('.nav-links');
+    menuToggle.addEventListener('click', () => {
+      menuToggle.classList.toggle('is-active');
+      navLinks.classList.toggle('active');
+    });
+    navLinks.addEventListener('click', e => {
+      if (e.target.tagName === 'A') { menuToggle.classList.remove('is-active'); navLinks.classList.remove('active'); }
+    });
+
+    // ===== NAVBAR SCROLL =====
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // ===== SCROLL PROGRESS =====
+    const progressBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      progressBar.style.width = pct + '%';
+    }, { passive: true });
+
+    // ===== REVEAL ON SCROLL =====
+    const revealEls = [];
+    document.querySelectorAll('h1,h2,h3,p,.btn-primary,.btn-secondary,.feature-card,.c-item,.contact-form,.about-image,.about-points li,.test-card').forEach(el => {
+      if (el.closest('.product-card') && !el.classList.contains('product-card')) return;
+      if (el.closest('.feature-card') && !el.classList.contains('feature-card')) return;
+      if (el.closest('.test-card')    && !el.classList.contains('test-card'))    return;
+      if (el.closest('.c-item')       && !el.classList.contains('c-item'))       return;
+      if (el.closest('.contact-form') && !el.classList.contains('contact-form')) return;
+      if (el.closest('.about-inner') && (el.tagName==='H2'||el.tagName==='P'||el.tagName==='LI'||el.classList.contains('btn-primary'))) {
+        el.classList.add('reveal-left');
+      } else if (el.classList.contains('about-image')) {
+        el.classList.add('reveal-in');
+      } else {
+        el.classList.add('reveal-up');
+      }
+      revealEls.push(el);
+    });
+
+    // Stagger within each section
+    document.querySelectorAll('section,footer,.hero-content,.hero-bottom-bar').forEach(container => {
+      let idx = 0;
+      container.querySelectorAll('.reveal-up,.reveal-left,.reveal-in').forEach(el => {
+        el.style.transitionDelay = `${(idx++ % 10) * 0.1}s`;
+      });
+    });
+
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          setTimeout(() => { e.target.style.transitionDelay = '0s'; }, 1000);
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    document.querySelectorAll('.reveal-up,.reveal-left,.reveal-in').forEach(el => revealObs.observe(el));
+
+    // ===== PRODUCT CARD STAGGER =====
+    const cardObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('card-visible'); cardObs.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.product-card').forEach((c, i) => {
+      c.classList.add('card-hidden');
+      c.style.transitionDelay = `${(i % 4) * 0.1}s`;
+      cardObs.observe(c);
+    });
+
+    // ===== FEATURE CARDS SLIDE =====
+    const featObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('feat-visible'); featObs.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.feature-card').forEach((c, i) => {
+      c.classList.add('feat-hidden');
+      c.style.transitionDelay = `${i * 0.12}s`;
+      featObs.observe(c);
+    });
+
+    // ===== SECTION TAG REVEAL =====
+    const tagObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('tag-revealed'), 100); tagObs.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.section-tag').forEach(t => tagObs.observe(t));
+
+    // ===== COUNT-UP =====
+    function countUp(el, target, duration) {
+      const start = performance.now();
+      const suffix = el.textContent.replace(/[0-9]/g,'');
+      const update = now => {
+        const ease = 1 - Math.pow(1 - Math.min((now - start) / duration, 1), 3);
+        el.textContent = Math.round(ease * target) + suffix;
+        if (ease < 1) requestAnimationFrame(update);
+      };
+      requestAnimationFrame(update);
+    }
+    const statsObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const numEl = e.target.querySelector('.num');
+          if (numEl) {
+            const num = parseInt(numEl.textContent.replace(/\D/g,''));
+            const sfx = numEl.textContent.replace(/[0-9]/g,'');
+            if (!isNaN(num)) { numEl.textContent = '0' + sfx; countUp(numEl, num, 1800); }
+          }
+          statsObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    document.querySelectorAll('.stat-item:not(.separator)').forEach(s => statsObs.observe(s));
+
+    // ===== HERO PARALLAX =====
+    const heroContent = document.querySelector('.hero-content');
+    window.addEventListener('scroll', () => {
+      if (heroContent) {
+        heroContent.style.transform = `translateY(${window.scrollY * 0.25}px)`;
+        heroContent.style.opacity   = String(1 - window.scrollY / 600);
+      }
+    }, { passive: true });
+
+    // ===== GLITCH =====
+    const heroAccent = document.querySelector('.hero h1 .accent-text');
+    if (heroAccent) setInterval(() => { heroAccent.classList.add('glitch-active'); setTimeout(() => heroAccent.classList.remove('glitch-active'), 400); }, 5000);
+
+    // ===== MOUSE LIGHT =====
+    document.getElementById('card-container').onmousemove = e => {
+      for (const card of document.getElementsByClassName('product-card')) {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
+        card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
+      }
+    };
+
+    // ===== TESTIMONIAL STAGGER =====
+    const testObs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('card-visible'); testObs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.test-card').forEach((c, i) => { c.classList.add('card-hidden'); c.style.transitionDelay = `${i * 0.15}s`; testObs.observe(c); });
+
+    // ===== EMAIL SEND =====
+    function sendEmail() {
+      const name    = document.getElementById('fname').value.trim();
+      const phone   = document.getElementById('fphone').value.trim();
+      const product = document.getElementById('fproduct').value;
+      const msg     = document.getElementById('fmsg').value.trim();
+      if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+      const sub  = encodeURIComponent(`Product Enquiry: ${product || 'General Enquiry'}`);
+      const body = encodeURIComponent(`Hello AADYIN PHARMA Team,\n\nName: ${name}\nPhone: ${phone}\nProduct: ${product || 'General Enquiry'}\nMessage: ${msg || 'I would like more information.'}\n\nThank you!`);
+      window.location.href = `mailto:info@aadyinpharma.com?subject=${sub}&body=${body}`;
+    }
+
+    // ===== ENQUIRE MODAL =====
+    function openEnquireModal(productName) {
+      document.getElementById('eq-product-name').textContent = productName;
+      const sub  = encodeURIComponent(`Product Enquiry: ${productName}`);
+      const body = encodeURIComponent(`Hello AADYIN PHARMA Team,\n\nI am interested in: ${productName}\n\nPlease guide me. Thank you!`);
+      document.getElementById('eq-open-email').href = `mailto:info@aadyinpharma.com?subject=${sub}&body=${body}`;
+      document.getElementById('eq-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeEnquireModal(event, force) {
+      if (force || (event && event.target === document.getElementById('eq-modal'))) {
+        document.getElementById('eq-modal').classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+    function copyEmail() {
+      navigator.clipboard.writeText('info@aadyinpharma.com').then(() => {
+        const btn = document.getElementById('eq-copy-btn');
+        const lbl = document.getElementById('copy-label');
+        btn.classList.add('copied'); lbl.textContent = 'Copied!';
+        setTimeout(() => { btn.classList.remove('copied'); lbl.textContent = 'Copy'; }, 2000);
+      });
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEnquireModal(null, true); });
+
+    // Visitor count (after DOM is ready)
+    fetch('https://api.countapi.xyz/hit/aadyinpharma/visits')
+      .then(r => r.json())
+      .then(data => {
+        const el = document.getElementById('visitor-count');
+        if (el && data && typeof data.value !== 'undefined') el.textContent = data.value + '+';
+      })
+      .catch(() => {});
+  </script>
+
+</body>
+</html>
