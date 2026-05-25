@@ -432,6 +432,8 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
     .c-icon { width:56px; height:56px; border-radius:16px; background:rgba(255,255,255,0.03); border:1px solid var(--border-light); display:flex; align-items:center; justify-content:center; font-size:20px; }
     .c-text .label { font-size:11px; font-weight:700; text-transform:uppercase; color:var(--accent-1); letter-spacing:2px; margin-bottom:6px; }
     .c-text .val { font-size:16px; font-weight:500; }
+    .c-text .clickable-location { transition: all 0.3s ease; cursor: pointer; }
+    .c-text .clickable-location:hover { color: var(--accent-1); text-shadow: 0 0 10px rgba(0, 208, 132, 0.5); transform: translate(2px, -2px); }
     .contact-form { padding:48px; background:rgba(3,27,58,0.4); border:1px solid rgba(0,208,132,0.2); border-radius:30px; box-shadow:0 20px 50px rgba(0,0,0,0.4),inset 0 0 40px rgba(0,208,132,0.02); position:relative; }
     .contact-form::before { content:''; position:absolute; top:-2px; left:-2px; right:-2px; bottom:-2px; background:linear-gradient(135deg,var(--accent-1),transparent,var(--accent-2)); border-radius:32px; z-index:-1; opacity:0.15; }
     .contact-form h3 { font-family:var(--font-head); font-size:32px; font-weight:800; margin-bottom:32px; color:#fff; }
@@ -1796,11 +1798,11 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
         </div>
         <div class="c-item glass-panel">
           <div class="c-icon">📞</div>
-          <div class="c-text"><div class="label">Phone</div><div class="val">+91 9960583760</div></div>
+          <div class="c-text"><div class="label">Phone / WhatsApp</div><div class="val">+91 9960418220</div></div>
         </div>
         <div class="c-item glass-panel">
           <div class="c-icon">📍</div>
-          <div class="c-text"><div class="label">Location</div><div class="val">Pune, Maharashtra, India</div></div>
+          <div class="c-text"><div class="label">Location</div><div class="val clickable-location" onclick="openLocationOnGoogleMaps()" style="cursor: pointer; text-decoration: underline;">Plot No D5, Sathangadu Iron and Steel Market, Manali, Chennai, Tamil Nadu, India</div></div>
         </div>
       </div>
 
@@ -2153,6 +2155,14 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
       else if (brand === 'ozn') { ozn.classList.remove('hidden'); pt.classList.add('hidden'); sp.classList.add('hidden'); }
       else if (brand === 'puretech') { ozn.classList.add('hidden'); pt.classList.remove('hidden'); sp.classList.add('hidden'); }
       else if (brand === 'superior') { ozn.classList.add('hidden'); pt.classList.add('hidden'); sp.classList.remove('hidden'); }
+    }
+
+    // ===== OPEN GOOGLE MAPS FOR LOCATION =====
+    function openLocationOnGoogleMaps() {
+      const address = 'Plot No D5, Sathangadu Iron and Steel Market, Manali, Chennai, Tamil Nadu, India';
+      const encodedAddress = encodeURIComponent(address);
+      const mapsUrl = `https://www.google.com/maps/search/${encodedAddress}`;
+      window.open(mapsUrl, '_blank');
     }
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEnquireModal(null, true); });
