@@ -10,44 +10,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>
-function animateVisitorCount(count) {
-  const el = document.getElementById("visitor-count");
-  const duration = 1800;
-  const start = performance.now();
-  const update = now => {
-    const ease = 1 - Math.pow(1 - Math.min((now - start) / duration, 1), 3);
-    el.textContent = Math.round(ease * count).toLocaleString('en-IN') + "+";
-    if (ease < 1) requestAnimationFrame(update);
-  };
-  requestAnimationFrame(update);
-}
+fetch("https://api.countapi.xyz/hit/aadyinpharma/visits")
+.then(response => response.json())
+.then(data => {
 
-const hasVisited = localStorage.getItem('aadyin_visited');
+document.getElementById("visitor-count").innerText = data.value + "+";
 
-if (!hasVisited) {
-  // First time visitor — increment the counter
-  fetch("https://api.counterapi.dev/v1/aadyinpharma/visits/up")
-    .then(r => r.json())
-    .then(data => {
-      const count = data.count || data.value || 500;
-      localStorage.setItem('aadyin_visited', '1');
-      animateVisitorCount(count);
-    })
-    .catch(() => {
-      document.getElementById("visitor-count").innerText = "500+";
-    });
-} else {
-  // Returning visitor — just fetch current count without incrementing
-  fetch("https://api.counterapi.dev/v1/aadyinpharma/visits")
-    .then(r => r.json())
-    .then(data => {
-      const count = data.count || data.value || 500;
-      animateVisitorCount(count);
-    })
-    .catch(() => {
-      document.getElementById("visitor-count").innerText = "500+";
-    });
-}
+});
 </script>
   <style>
     /* ===== CORE RESET & VARIABLES ===== */
@@ -190,11 +159,11 @@ if (!hasVisited) {
       box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 40px rgba(0,208,132,0.05);
       width:95%; top:16px;
     }
-    .logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
-    .logo-icon { width:44px; height:44px; background:linear-gradient(135deg,var(--accent-1),var(--accent-2)); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:20px; box-shadow:0 0 25px rgba(0,208,132,0.5),0 0 50px rgba(0,208,132,0.15); }
-    .logo-text { display:flex; flex-direction:column; line-height:1; }
-    .logo-text span:first-child { font-family:var(--font-head); font-weight:900; font-size:22px; letter-spacing:2px; color:var(--text-main); }
-    .logo-text span:last-child { font-size:9px; font-weight:600; letter-spacing:3px; color:var(--accent-1); text-transform:uppercase; margin-top:4px; }
+    .logo { display:flex; align-items:center; gap:14px; text-decoration:none; }
+    .logo-img-circle { width:52px; height:52px; border-radius:10px; object-fit:contain; background:rgba(2,9,20,0.85); border:2px solid rgba(0,208,132,0.3); box-shadow:0 0 18px rgba(0,208,132,0.25); flex-shrink:0; padding:2px; }
+    .logo-text { display:flex; flex-direction:column; line-height:1; gap:3px; }
+    .logo-text .logo-name { font-family:var(--font-head); font-weight:900; font-size:26px; letter-spacing:2.5px; color:#ffffff; text-transform:uppercase; white-space:nowrap; }
+    .logo-text .logo-tagline { font-family:var(--font-head); font-size:10px; font-weight:700; letter-spacing:4px; color:var(--accent-1); text-transform:uppercase; }
     nav ul { display:flex; gap:8px; list-style:none; }
     nav ul li a { text-decoration:none; color:var(--text-muted); font-size:14px; font-weight:500; padding:10px 20px; border-radius:100px; transition:all 0.3s ease; }
     nav ul li a:hover { color:var(--accent-1); background:rgba(0,208,132,0.08); box-shadow:0 0 15px rgba(0,208,132,0.1); }
@@ -463,6 +432,8 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
     .c-icon { width:56px; height:56px; border-radius:16px; background:rgba(255,255,255,0.03); border:1px solid var(--border-light); display:flex; align-items:center; justify-content:center; font-size:20px; }
     .c-text .label { font-size:11px; font-weight:700; text-transform:uppercase; color:var(--accent-1); letter-spacing:2px; margin-bottom:6px; }
     .c-text .val { font-size:16px; font-weight:500; }
+    .c-text .clickable-location { transition: all 0.3s ease; cursor: pointer; }
+    .c-text .clickable-location:hover { color: var(--accent-1); text-shadow: 0 0 10px rgba(0, 208, 132, 0.5); transform: translate(2px, -2px); }
     .contact-form { padding:48px; background:rgba(3,27,58,0.4); border:1px solid rgba(0,208,132,0.2); border-radius:30px; box-shadow:0 20px 50px rgba(0,0,0,0.4),inset 0 0 40px rgba(0,208,132,0.02); position:relative; }
     .contact-form::before { content:''; position:absolute; top:-2px; left:-2px; right:-2px; bottom:-2px; background:linear-gradient(135deg,var(--accent-1),transparent,var(--accent-2)); border-radius:32px; z-index:-1; opacity:0.15; }
     .contact-form h3 { font-family:var(--font-head); font-size:32px; font-weight:800; margin-bottom:32px; color:#fff; }
@@ -561,8 +532,9 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
     }
     @media(max-width:768px) {
       nav { padding:10px 15px; width:92%; top:10px; }
-      .logo-icon { width:36px; height:36px; font-size:16px; }
-      .logo-text span:first-child { font-size:18px; }
+      .logo-img-circle { width:40px; height:40px; }
+      .logo-text .logo-name { font-size:20px; letter-spacing:1.5px; }
+      .logo-text .logo-tagline { font-size:8px; letter-spacing:3px; }
       .menu-toggle { display:flex; }
       nav ul { position:absolute; top:100%; left:0; width:100%; background:rgba(2,9,20,0.98); backdrop-filter:blur(30px); -webkit-backdrop-filter:blur(30px); flex-direction:column; align-items:center; padding:30px 0; gap:15px; border-radius:24px; border:1px solid var(--border-light); transform:translateY(-20px); opacity:0; visibility:hidden; transition:all 0.4s cubic-bezier(0.16,1,0.3,1); box-shadow:0 30px 60px rgba(0,0,0,0.8); }
       nav ul.active { transform:translateY(15px); opacity:1; visibility:visible; }
@@ -658,6 +630,84 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
     .superior-line { background: linear-gradient(90deg, #a855f7, #7c3aed, transparent); }
     .brand-section-name { font-family: var(--font-head); font-weight: 800; font-size: 22px; color: #021B3A; }
 
+    .product-price { color: #f59e0b; font-size: 12px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.5px; }
+
+    /* ===== DOWNLOAD BUTTON ===== */
+    .img-download-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 8px; padding: 6px 14px;
+      background: rgba(0,208,132,0.1); border: 1px solid rgba(0,208,132,0.35);
+      border-radius: 100px; color: var(--accent-1);
+      font-size: 12px; font-weight: 700; letter-spacing: 1px;
+      text-decoration: none; cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .img-download-btn:hover { background: rgba(0,208,132,0.22); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,208,132,0.2); }
+    .puretech-dl { border-color: rgba(168,85,247,0.35); color: #c084fc; background: rgba(168,85,247,0.08); }
+    .puretech-dl:hover { background: rgba(168,85,247,0.18); box-shadow: 0 4px 16px rgba(168,85,247,0.2); }
+    .superior-dl { border-color: rgba(168,85,247,0.35); color: #c084fc; background: rgba(168,85,247,0.08); }
+    .superior-dl:hover { background: rgba(168,85,247,0.18); box-shadow: 0 4px 16px rgba(168,85,247,0.2); }
+
+    /* ===== UNAVAILABLE BADGE ===== */
+    .unavailable-overlay {
+      position: absolute; inset: 0; z-index: 10;
+      background: rgba(10,10,20,0.45); border-radius: 20px;
+      display: flex; align-items: flex-start; justify-content: flex-end;
+      padding: 14px; pointer-events: none;
+    }
+    .unavailable-badge {
+      background: rgba(239,68,68,0.9); color: #fff;
+      font-family: var(--font-head); font-weight: 900; font-size: 11px;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 100px;
+      box-shadow: 0 2px 10px rgba(239,68,68,0.4);
+    }
+    .product-card.unavailable { opacity: 0.55; }
+    .product-card.unavailable .btn-outline { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
+    .product-card { position: relative; cursor: pointer; }
+
+    /* ===== PRODUCT DETAIL PANEL ===== */
+    #product-detail-panel {
+      display: none;
+      background: linear-gradient(135deg, rgba(0,208,132,0.06) 0%, rgba(2,15,35,0.85) 100%);
+      border: 1px solid rgba(0,208,132,0.25);
+      border-radius: 24px; padding: 40px; margin-bottom: 48px;
+      position: relative; backdrop-filter: blur(24px);
+      animation: panelIn 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    #product-detail-panel.superior-panel {
+      background: linear-gradient(135deg, rgba(168,85,247,0.07) 0%, rgba(2,10,30,0.9) 100%);
+      border-color: rgba(168,85,247,0.25);
+    }
+    @keyframes panelIn { from{opacity:0;transform:translateY(-20px);} to{opacity:1;transform:translateY(0);} }
+    #product-detail-panel.open { display: flex; gap: 40px; flex-wrap: wrap; align-items: flex-start; }
+    .pdp-img-wrap {
+      flex: 0 0 220px; min-width: 160px; max-width: 260px;
+      background: rgba(255,255,255,0.04); border-radius: 16px;
+      overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 220px;
+    }
+    .pdp-img-wrap img { width: 100%; height: 100%; object-fit: contain; max-height: 260px; }
+    .pdp-body { flex: 1; min-width: 200px; }
+    .pdp-close {
+      position: absolute; top: 16px; right: 16px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted); width: 36px; height: 36px; border-radius: 50%;
+      cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    .pdp-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+    .pdp-brand-tag { font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-1); margin-bottom: 6px; }
+    .pdp-brand-tag.superior { color: #c084fc; }
+    .pdp-title { font-family: var(--font-teko); font-size: 48px; font-weight: 700; color: #fff; line-height: 1; margin-bottom: 8px; letter-spacing: 2px; text-transform: uppercase; }
+    .pdp-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+    .pdp-desc { font-size: 15px; color: #c8d8e8; line-height: 1.7; margin-bottom: 20px; }
+    .pdp-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .pdp-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    @media(max-width:600px){
+      #product-detail-panel.open { flex-direction: column; }
+      .pdp-img-wrap { max-width: 100%; min-height: 180px; }
+      .pdp-title { font-size: 36px; }
+    }
 
     /* Brand section hidden for filtering */
     .brand-section.hidden { display: none; }
@@ -685,7 +735,11 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
   <nav id="navbar" class="glass-panel">
     <a href="#home" class="logo">
-      <img src="logo.jpeg" alt="AADYIN PHARMA" style="height:52px;width:auto;border-radius:8px;object-fit:contain;">
+      <img src="images/aadyin-logo-new.png" alt="AADYIN PHARMA" class="logo-img-circle">
+      <div class="logo-text">
+        <span class="logo-name">AADYIN PHARMA</span>
+        <span class="logo-tagline">Elite Performance</span>
+      </div>
     </a>
     <div class="menu-toggle" id="mobile-menu">
       <span class="bar"></span>
@@ -719,10 +773,8 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
         <a href="mailto:info@aadyinpharma.com" class="btn-secondary" target="_blank">📧 Email Us</a>
       </div>
       <div class="hero-stats">
-        <div class="stat-item">
-          <div class="num" id="visitor-count">0+</div>
-          <div class="label">Website Visitors</div>
-        </div>
+<h3 id="visitor-count">500</h3>
+<p>Visitors</p>
         <div class="stat-item separator"></div>
         <div class="stat-item"><div class="num">1000+</div><div class="label">Products Sold</div></div>
         <div class="stat-item separator"></div>
@@ -779,6 +831,24 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
       <div class="section-tag">Our Lineup</div>
       <h2>ELITE <span class="accent-text">PRODUCTS</span></h2>
       <p>Premium anabolic compounds and performance ingredients for serious results.</p>
+    </div>
+
+    <!-- Product Detail Panel -->
+    <div id="product-detail-panel">
+      <button class="pdp-close" onclick="closeProductDetail()">✕</button>
+      <div class="pdp-img-wrap">
+        <img id="pdp-img" src="" alt="">
+      </div>
+      <div class="pdp-body">
+        <div id="pdp-brand" class="pdp-brand-tag"></div>
+        <div id="pdp-title" class="pdp-title"></div>
+        <div id="pdp-sub" class="pdp-sub"></div>
+        <p id="pdp-desc" class="pdp-desc"></p>
+        <div id="pdp-tags" class="pdp-tags"></div>
+        <div class="pdp-actions">
+          <button class="btn-primary" id="pdp-enquire-btn" onclick="">Enquire Now</button>
+        </div>
+      </div>
     </div>
 
     <!-- Brand Filter Tabs -->
@@ -923,6 +993,18 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
         </div>
       </div>
 
+      <!-- OZN 11: Mushroom 4D -->
+      <div class="product-card">
+        <div class="product-img-wrap"><img src="images/mushroom-4d-product-2.jpg" alt="Mushroom 4D Mushroom Soup Powder" onerror="this.style.display='none'"></div>
+        <div class="product-body">
+          <div class="product-sub">Mushroom Soup Powder · 200g · ISO 9001:2015 Certified</div>
+          <h3>MUSHROOM 4D</h3>
+          <p>Tasty &amp; healthy mushroom soup powder packed with Protein, Vitamins &amp; Minerals. Builds muscle, boosts energy, enhances stamina &amp; power. WHO-GMP Certified. Ready in minutes — just mix &amp; enjoy.</p>
+          <div class="product-benefits"><span class="benefit-tag">Builds Muscle</span><span class="benefit-tag">Boosts Energy</span><span class="benefit-tag">Rich in Nutrients</span><span class="benefit-tag">Tasty &amp; Healthy</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Mushroom 4D Mushroom Soup Powder')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
       </div><!-- end OZN product-grid -->
     </div><!-- end brand-ozn -->
 
@@ -942,7 +1024,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 1: Boldi-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/boldi-tech.png" alt="Boldi-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/boldi-tech_unified.png" alt="Boldi-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">300MG/ML Boldenone Undecylenate · Half-Life: 16-17 Days</div>
           <h3>BOLDI-TECH</h3>
@@ -954,7 +1036,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 2: Deca-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/deca-tech.png" alt="Deca-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/deca-tech_unified.png" alt="Deca-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">300MG/ML Nandrolone Decanoate · Half-Life: 14-15 Days</div>
           <h3>DECA-TECH</h3>
@@ -966,7 +1048,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 3: NPP -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/npp.png" alt="NPP" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/npp_unified.png" alt="NPP" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">100MG/ML Nandrolone Phenylpropionate · Half-Life: 2-7 Days</div>
           <h3>NPP</h3>
@@ -978,7 +1060,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 4: Bulk-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/bulk-tech.png" alt="Bulk-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/bulk-tech_unified.png" alt="Bulk-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">500MG/ML — ND 200 + TE 200 + Tren E 100 · Half-Life: 8-10 Days</div>
           <h3>BULK-TECH</h3>
@@ -990,7 +1072,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 5: Hard-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/hard-tech.png" alt="Hard-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/hard-tech_unified.png" alt="Hard-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">500MG/ML — Test E 300 + NPP 100 + Tren H 100 · Half-Life: 8-10 Days</div>
           <h3>HARD-TECH</h3>
@@ -1002,7 +1084,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 6: Cut-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/cut-tech.png" alt="Cut-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/cut-tech_unified.png" alt="Cut-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">200MG/ML — Test P + Tren A + Drost P + Test PP · Half-Life: 2-3 Days</div>
           <h3>CUT-TECH</h3>
@@ -1014,7 +1096,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 7: TRT -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/trt_white_bg.png" alt="TRT" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/trt_unified.png" alt="TRT" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">200MG/ML — Test E 100 + Methenolone E 100</div>
           <h3>TRT</h3>
@@ -1026,7 +1108,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 8: Winni-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_10_nobg.png" alt="Winni-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/winni-tech_unified.png" alt="Winni-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">100MG/ML Stanozolol · Half-Life: 7-8 Days</div>
           <h3>WINNI-TECH</h3>
@@ -1038,7 +1120,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 9: Cypo-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_11_nobg.png" alt="Cypo-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/cypo-tech_unified.png" alt="Cypo-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">250MG/ML Testosterone Cypionate · Half-Life: 15-16 Days</div>
           <h3>CYPO-TECH</h3>
@@ -1050,7 +1132,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 10: Susta-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_12_nobg.png" alt="Susta-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/susta-tech_unified.png" alt="Susta-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">250MG/ML Testosterone Mix · Half-Life: 7-8 Days</div>
           <h3>SUSTA-TECH</h3>
@@ -1062,7 +1144,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 11: Prop-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_13_nobg.png" alt="Prop-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/prop-tech_unified.png" alt="Prop-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">100MG/ML Testosterone Propionate · Half-Life: 2-4 Days</div>
           <h3>PROP-TECH</h3>
@@ -1074,7 +1156,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 12: Testo-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_14_nobg.png" alt="Testo-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/testo-tech_unified.png" alt="Testo-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">250MG/ML Testosterone Enanthate · Half-Life: 7-8 Days</div>
           <h3>TESTO-TECH</h3>
@@ -1086,7 +1168,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 13: Mast-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_15_nobg.png" alt="Mast-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/mast-tech_unified.png" alt="Mast-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">100MG/ML Drostanolone Propionate · Half-Life: 2-3 Days</div>
           <h3>MAST-TECH</h3>
@@ -1098,7 +1180,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 14: Prima-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_16_nobg.png" alt="Prima-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/prima-tech_unified.png" alt="Prima-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">100MG/ML Methenolone Enanthate · Half-Life: 5-6 Days</div>
           <h3>PRIMA-TECH</h3>
@@ -1110,7 +1192,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 15: Tren A-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_17_nobg.png" alt="Tren A-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/tren_a-tech_unified.png" alt="Tren A-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">100MG/ML Trenbolone Acetate · Half-Life: 3-4 Days</div>
           <h3>TREN A-TECH</h3>
@@ -1122,7 +1204,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 16: Tren E-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_18_nobg.png" alt="Tren E-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/tren_e-tech_unified.png" alt="Tren E-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">200MG/ML Trenbolone Enanthate · Half-Life: 8-9 Days</div>
           <h3>TREN E-TECH</h3>
@@ -1134,7 +1216,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 17: Tren H-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_19_nobg.png" alt="Tren H-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/tren_h-tech_unified.png" alt="Tren H-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">100MG/ML Trenbolone Hexahydrobenzylcarbonate · Half-Life: 6-7 Days</div>
           <h3>TREN H-TECH</h3>
@@ -1146,7 +1228,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 18: Andro-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_21_nobg.png" alt="Andro-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/andro-tech_unified.png" alt="Andro-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">50MG Oxymetholone Tablets · 100 Tabs · Half-Life: 14 Hours</div>
           <h3>ANDRO-TECH</h3>
@@ -1158,7 +1240,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 19: Diana-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_22_nobg.png" alt="Diana-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/diana-tech_unified.png" alt="Diana-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">10MG Methandienone Tablets · 100 Tabs · Half-Life: 6-7 Hours</div>
           <h3>DIANA-TECH</h3>
@@ -1170,7 +1252,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 20: Armi-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_23_nobg.png" alt="Armi-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/armi-tech_unified.png" alt="Armi-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">1MG Anastrozole Tablets · 30 Tabs · Half-Life: 40-50 Hours</div>
           <h3>ARMI-TECH</h3>
@@ -1182,7 +1264,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 21: Cloma-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_24_nobg.png" alt="Cloma-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/cloma-tech_unified.png" alt="Cloma-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">50MG Clomiphene Citrate Tablets · 50 Tabs · Half-Life: 5-6 Days</div>
           <h3>CLOMA-TECH</h3>
@@ -1194,7 +1276,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 22: Provi-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_25_nobg.png" alt="Provi-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/provi-tech_unified.png" alt="Provi-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">25MG Masterolone Tablets · 50 Tabs · Half-Life: 12-13 Hours</div>
           <h3>PROVI-TECH</h3>
@@ -1206,7 +1288,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 23: Nolva-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_26_nobg.png" alt="Nolva-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/nolva-tech_unified.png" alt="Nolva-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">20MG Tamoxifen Citrate Tablets · 100 Tabs · Half-Life: 5-7 Days</div>
           <h3>NOLVA-TECH</h3>
@@ -1218,7 +1300,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 24: Clen-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_27_nobg.png" alt="Clen-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/clen-tech_unified.png" alt="Clen-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">40MCG Clenbuterol HCL Tablets · 100 Tabs · Half-Life: 4-5 Hours</div>
           <h3>CLEN-TECH</h3>
@@ -1230,7 +1312,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 25: Stana-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_28_nobg.png" alt="Stana-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/stana-tech_unified.png" alt="Stana-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">10MG Stanozolol Tablets · 100 Tabs · Half-Life: 7-8 Hours</div>
           <h3>STANA-TECH</h3>
@@ -1242,7 +1324,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 26: T3 -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_29_nobg.png" alt="T3" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/t3_unified.png" alt="T3" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">50MCG Liothyronine Sodium Tablets · 100 Tabs · Half-Life: 2-4 Days</div>
           <h3>T3</h3>
@@ -1254,7 +1336,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 27: Oxy-Tech -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_30_nobg.png" alt="Oxy-Tech" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/oxy-tech_unified.png" alt="Oxy-Tech" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">10MG Oxandrolone Tablets · 100 Tabs · Half-Life: 8-10 Hours</div>
           <h3>OXY-TECH</h3>
@@ -1266,7 +1348,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
 
       <!-- PT 28: Turinabol -->
       <div class="product-card">
-        <div class="product-img-wrap"><img src="images/puretech/page_31_nobg.png" alt="Turinabol" onerror="this.style.display='none'"></div>
+        <div class="product-img-wrap"><img src="images/puretech_unified/turinabol_unified.png" alt="Turinabol" onerror="this.style.display='none'"></div>
         <div class="product-body">
           <div class="product-sub">10MG Chlorodehydromethyl Testosterone · 100 Tabs · Half-Life: 16 Hours</div>
           <h3>TURINABOL</h3>
@@ -1294,129 +1376,325 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
       </div>
       <div class="product-grid" id="card-container-superior">
 
-      <!-- SP 1: BPC-157 -->
+      <!-- SP 1: Adipotide (FTPP) -->
       <div class="product-card">
         <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
-          <img src="https://5.imimg.com/data5/SELLER/Default/2025/4/507220898/QI/CH/OM/115586786/superior-peptide-bpc-157-500x500.jpg" alt="BPC-157" style="object-fit:contain;width:100%;height:100%;" onerror="this.onerror=null;this.src='';this.parentElement.innerHTML='<div style='color:#a855f7;font-size:60px;text-align:center;padding:30px'>🧬</div>'">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/ADIPODITE_Box_2-300x300.png" alt="Adipotide FTPP" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
         </div>
         <div class="product-body">
-          <div class="product-sub">Body Protection Compound · Injectable Peptide</div>
-          <h3>BPC-157</h3>
-          <p>Synthetic peptide derived from a protective stomach protein. Researched for regenerative effects on tendons, ligaments, muscles &amp; nerves. Powerful recovery compound.</p>
-          <div class="product-benefits"><span class="benefit-tag">Tissue Repair</span><span class="benefit-tag">Recovery</span><span class="benefit-tag">Anti-Inflammation</span></div>
-          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide BPC-157')" type="button">Enquire Now</button>
+          <div class="product-sub">Proapoptotic Peptide · Injectable Research Compound</div>
+          <h3>ADIPOTIDE (FTPP)</h3>
+          <p>Targets and destroys blood vessels supplying white fat cells, causing selective fat cell apoptosis. Research shows rapid weight loss, BMI reduction & improved insulin sensitivity.</p>
+          <div class="product-benefits"><span class="benefit-tag">Fat Loss</span><span class="benefit-tag">Insulin Sensitivity</span><span class="benefit-tag">Anti-Obesity</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide Adipotide FTPP')" type="button">Enquire Now</button>
         </div>
       </div>
 
-      <!-- SP 2: TB-500 -->
+      <!-- SP 2: AOD -->
       <div class="product-card">
         <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
-          <img src="https://5.imimg.com/data5/SELLER/Default/2025/4/507220898/QI/CH/OM/115586786/superior-peptide-bpc-157-500x500.jpg" alt="TB-500" style="object-fit:contain;width:100%;height:100%;" onerror="this.onerror=null;this.src='';this.parentElement.innerHTML='<div style='color:#a855f7;font-size:60px;text-align:center;padding:30px'>💉</div>'">
-        </div>
-        <div class="product-body">
-          <div class="product-sub">Thymosin Beta-4 · Research Peptide</div>
-          <h3>TB-500</h3>
-          <p>Accelerates recovery, promotes cell migration &amp; enhances angiogenesis (new blood vessel formation). Key research peptide for injury recovery &amp; chronic inflammation.</p>
-          <div class="product-benefits"><span class="benefit-tag">Recovery</span><span class="benefit-tag">Cell Migration</span><span class="benefit-tag">Angiogenesis</span></div>
-          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide TB-500')" type="button">Enquire Now</button>
-        </div>
-      </div>
-
-      <!-- SP 3: BPC-157 + TB-500 Recovery Blend -->
-      <div class="product-card">
-        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
-          <img src="https://5.imimg.com/data5/SELLER/Default/2025/4/507220058/OD/NU/UN/115586786/superior-peptide-aod-500x500.jpg" alt="Recovery Blend" style="object-fit:contain;width:100%;height:100%;" onerror="this.onerror=null;this.src='';this.parentElement.innerHTML='<div style='color:#a855f7;font-size:60px;text-align:center;padding:30px'>🔬</div>'">
-        </div>
-        <div class="product-body">
-          <div class="product-sub">BPC-157 + TB-500 · Ultimate Recovery Stack</div>
-          <h3>RECOVERY BLEND</h3>
-          <p>Combines BPC-157 &amp; TB-500 for powerful tissue repair, muscle recovery &amp; inflammation management. Ideal for research on injury recovery &amp; post-operative healing.</p>
-          <div class="product-benefits"><span class="benefit-tag">Tissue Repair</span><span class="benefit-tag">Muscle Recovery</span><span class="benefit-tag">Anti-Inflammatory</span></div>
-          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide Recovery Blend BPC+TB500')" type="button">Enquire Now</button>
-        </div>
-      </div>
-
-      <!-- SP 4: CJC-1295 DAC -->
-      <div class="product-card">
-        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
-          <img src="https://5.imimg.com/data5/SELLER/Default/2025/4/506368642/ZQ/ZY/LB/115586786/mod-grf-box-10-2048x2048-500x500.jpg" alt="CJC-1295 DAC" style="object-fit:contain;width:100%;height:100%;" onerror="this.onerror=null;this.src='';this.parentElement.innerHTML='<div style='color:#a855f7;font-size:60px;text-align:center;padding:30px'>📈</div>'">
-        </div>
-        <div class="product-body">
-          <div class="product-sub">CJC-1295 with DAC · Long-Acting GH Secretagogue</div>
-          <h3>CJC-1295 DAC</h3>
-          <p>Long-acting GH releasing hormone analogue. Supports lean muscle development, lipolysis, anti-aging &amp; fat metabolism. Extended GH release for long-term research.</p>
-          <div class="product-benefits"><span class="benefit-tag">GH Release</span><span class="benefit-tag">Lean Muscle</span><span class="benefit-tag">Fat Loss</span></div>
-          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide CJC-1295 DAC')" type="button">Enquire Now</button>
-        </div>
-      </div>
-
-      <!-- SP 5: Mod GRF (CJC-1295 Non-DAC) -->
-      <div class="product-card">
-        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
-          <img src="https://5.imimg.com/data5/SELLER/Default/2025/4/506368642/ZQ/ZY/LB/115586786/mod-grf-box-10-2048x2048-500x500.jpg" alt="Mod GRF CJC-1295 Non DAC" style="object-fit:contain;width:100%;height:100%;" onerror="this.onerror=null;this.src='';this.parentElement.innerHTML='<div style='color:#a855f7;font-size:60px;text-align:center;padding:30px'>🔭</div>'">
-        </div>
-        <div class="product-body">
-          <div class="product-sub">Mod GRF 1-29 · CJC-1295 without DAC · Short-Acting</div>
-          <h3>MOD GRF (CJC-1295)</h3>
-          <p>Short half-life for pulsatile GH release research. Ideal paired with GHRP-2, GHRP-6 or Ipamorelin. Used in anti-aging, muscle growth &amp; fat metabolism studies.</p>
-          <div class="product-benefits"><span class="benefit-tag">GH Pulse</span><span class="benefit-tag">Anti-Aging</span><span class="benefit-tag">Muscle Growth</span></div>
-          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide Mod GRF CJC-1295 Non-DAC')" type="button">Enquire Now</button>
-        </div>
-      </div>
-
-      <!-- SP 6: Ipamorelin -->
-      <div class="product-card">
-        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
-          <div style="color:#a855f7;font-size:60px;text-align:center;padding:30px;display:flex;align-items:center;justify-content:center;height:100%">🧪</div>
-        </div>
-        <div class="product-body">
-          <div class="product-sub">Selective GH Secretagogue · GHRP</div>
-          <h3>IPAMORELIN</h3>
-          <p>Highly selective growth hormone releasing peptide. Stimulates GH secretion with minimal cortisol &amp; prolactin side effects. Often stacked with CJC-1295.</p>
-          <div class="product-benefits"><span class="benefit-tag">GH Secretagogue</span><span class="benefit-tag">Anti-Aging</span><span class="benefit-tag">Recovery</span></div>
-          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide Ipamorelin')" type="button">Enquire Now</button>
-        </div>
-      </div>
-
-      <!-- SP 7: Ripping Blend -->
-      <div class="product-card">
-        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
-          <div style="color:#a855f7;font-size:60px;text-align:center;padding:30px;display:flex;align-items:center;justify-content:center;height:100%">⚡</div>
-        </div>
-        <div class="product-body">
-          <div class="product-sub">Tesamorelin + CJC-1295 + Ipamorelin · Fat Loss Stack</div>
-          <h3>RIPPING BLEND</h3>
-          <p>Potent peptide stack for fat loss, muscle definition &amp; enhanced body composition. Tesamorelin targets abdominal fat, combined with CJC-1295 &amp; Ipamorelin for synergistic GH release.</p>
-          <div class="product-benefits"><span class="benefit-tag">Fat Loss</span><span class="benefit-tag">Definition</span><span class="benefit-tag">Body Composition</span></div>
-          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide Ripping Blend')" type="button">Enquire Now</button>
-        </div>
-      </div>
-
-      <!-- SP 8: AOD-9604 -->
-      <div class="product-card">
-        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
-          <img src="https://5.imimg.com/data5/SELLER/Default/2025/4/507220058/OD/NU/UN/115586786/superior-peptide-aod-500x500.jpg" alt="AOD-9604" style="object-fit:contain;width:100%;height:100%;" onerror="this.onerror=null;this.src='';this.parentElement.innerHTML='<div style='color:#a855f7;font-size:60px;text-align:center;padding:30px'>🔥</div>'">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/AOD-Box-16-scaled.jpg" alt="AOD" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
         </div>
         <div class="product-body">
           <div class="product-sub">Fragment 176-191 · hGH Fat-Burning Fragment</div>
           <h3>AOD-9604</h3>
-          <p>Small section of human growth hormone sequence (hGH) shown to enhance fat burning &amp; shift metabolism toward lean body mass maintenance. Anti-obesity research peptide.</p>
+          <p>Modified hGH fragment that stimulates fat burning and inhibits new fat formation. Boosts metabolism & shifts body toward lean mass maintenance without affecting blood sugar or growth.</p>
           <div class="product-benefits"><span class="benefit-tag">Fat Burning</span><span class="benefit-tag">Lean Mass</span><span class="benefit-tag">Metabolism</span></div>
           <button class="btn-outline" onclick="openEnquireModal('Superior Peptide AOD-9604')" type="button">Enquire Now</button>
         </div>
       </div>
 
-      <!-- SP 9: PGCL -->
+      <!-- SP 3: BPC-157 -->
       <div class="product-card">
         <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
-          <div style="color:#a855f7;font-size:60px;text-align:center;padding:30px;display:flex;align-items:center;justify-content:center;height:100%">⚗️</div>
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/BPC-157-Box-3-scaled.jpg" alt="BPC-157" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Body Protection Compound · Injectable Peptide</div>
+          <h3>BPC-157</h3>
+          <p>Synthetic peptide derived from a protective stomach protein. Researched for regenerative effects on tendons, ligaments, muscles & nerves. Powerful recovery compound.</p>
+          <div class="product-benefits"><span class="benefit-tag">Tissue Repair</span><span class="benefit-tag">Recovery</span><span class="benefit-tag">Anti-Inflammation</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide BPC-157')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 4: BPC-157 + TB-500 -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/BPC-157-Box-17-scaled.jpg" alt="BPC-157 + TB-500" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">BPC-157 + TB-500 · Ultimate Recovery Stack</div>
+          <h3>BPC-157 + TB-500</h3>
+          <p>Combines BPC-157 & TB-500 for powerful tissue repair, muscle recovery & inflammation management. Ideal for injury recovery & post-operative healing research.</p>
+          <div class="product-benefits"><span class="benefit-tag">Tissue Repair</span><span class="benefit-tag">Muscle Recovery</span><span class="benefit-tag">Anti-Inflammatory</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide BPC-157 + TB-500')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 5: CJC-1295 DAC -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/CJC-1295-DAC-Box-4-scaled.jpg" alt="CJC-1295 DAC" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">CJC-1295 with DAC · Long-Acting GH Secretagogue</div>
+          <h3>CJC-1295 DAC</h3>
+          <p>Long-acting GH releasing hormone analogue with Drug Affinity Complex. Supports lean muscle development, lipolysis, anti-aging & fat metabolism with extended GH release.</p>
+          <div class="product-benefits"><span class="benefit-tag">GH Release</span><span class="benefit-tag">Lean Muscle</span><span class="benefit-tag">Fat Loss</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide CJC-1295 DAC')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 6: FST-344 -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/FST-344-Box-5-scaled.jpg" alt="FST-344" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Follistatin-344 · Myostatin Inhibitor</div>
+          <h3>FST-344</h3>
+          <p>Naturally occurring protein that binds and neutralizes myostatin — the protein that limits muscle growth. Research shows significant increases in muscle mass and strength potential.</p>
+          <div class="product-benefits"><span class="benefit-tag">Muscle Growth</span><span class="benefit-tag">Myostatin Block</span><span class="benefit-tag">Strength</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide FST-344')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 7: GHK-Cu -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2026/02/GHK-Cu-scaled.jpg" alt="GHK-Cu" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Copper Peptide · Regenerative Research Compound</div>
+          <h3>GHK-CU</h3>
+          <p>Copper-binding tripeptide naturally found in human plasma. Studied for skin regeneration, wound healing, anti-aging effects, collagen synthesis & hair follicle stimulation.</p>
+          <div class="product-benefits"><span class="benefit-tag">Regeneration</span><span class="benefit-tag">Collagen</span><span class="benefit-tag">Anti-Aging</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide GHK-Cu')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 8: GHRP-2 + CJC-1295 + IPAMORELIN -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/GHRP-2-Box-18-scaled.jpg" alt="GHRP-2 + CJC-1295 + Ipamorelin" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Triple GH Stack · Synergistic Secretagogue Blend</div>
+          <h3>GHRP-2 + CJC-1295 + IPAMORELIN</h3>
+          <p>Powerful triple peptide stack combining GHRP-2, CJC-1295 & Ipamorelin for maximum GH secretion. Synergistic blend for lean muscle growth, fat loss & anti-aging research.</p>
+          <div class="product-benefits"><span class="benefit-tag">Max GH Release</span><span class="benefit-tag">Lean Muscle</span><span class="benefit-tag">Fat Loss</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide GHRP-2 + CJC-1295 + Ipamorelin')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 9: GHRP-6 -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/GHRP-Box-6-scaled.jpg" alt="GHRP-6" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Growth Hormone Releasing Peptide-6 · GH Secretagogue</div>
+          <h3>GHRP-6</h3>
+          <p>Potent GH secretagogue that stimulates hunger and GH release. Widely studied for increasing lean mass, reducing body fat, improving recovery & boosting IGF-1 levels.</p>
+          <div class="product-benefits"><span class="benefit-tag">GH Release</span><span class="benefit-tag">IGF-1</span><span class="benefit-tag">Muscle Mass</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide GHRP-6')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 10: GHRP-6 + MOD GRF + HEXARELIN -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/GHRP-6_Box_11-scaled.jpg" alt="GHRP-6 + MOD GRF + Hexarelin" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Triple GH Blend · GHRP-6 + Mod GRF + Hexarelin</div>
+          <h3>GHRP-6 + MOD GRF + HEXARELIN</h3>
+          <p>Advanced triple peptide stack combining GHRP-6, Mod GRF (1-29) & Hexarelin. Maximizes natural GH pulse amplitude for superior muscle growth, fat loss & recovery.</p>
+          <div class="product-benefits"><span class="benefit-tag">GH Pulse</span><span class="benefit-tag">Recovery</span><span class="benefit-tag">Fat Loss</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide GHRP-6 + MOD GRF + Hexarelin')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 11: GONADORELIN -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/GONADORELIN-Box-9-scaled.jpg" alt="Gonadorelin" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">GnRH Analogue · Hormone Regulation Research</div>
+          <h3>GONADORELIN</h3>
+          <p>Synthetic form of gonadotropin-releasing hormone (GnRH). Studied for its role in stimulating LH & FSH release, supporting testosterone production & hormonal balance during cycles.</p>
+          <div class="product-benefits"><span class="benefit-tag">LH/FSH</span><span class="benefit-tag">Testosterone</span><span class="benefit-tag">Hormonal Balance</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide Gonadorelin')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 12: HGH 191AA -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/HGH-191AA-Box-14-scaled.jpg" alt="HGH 191AA" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Human Growth Hormone · 191 Amino Acid Sequence</div>
+          <h3>HGH 191AA</h3>
+          <p>Recombinant human growth hormone with the full 191 amino acid sequence identical to natural pituitary HGH. Studied for lean muscle, fat metabolism, recovery & anti-aging effects.</p>
+          <div class="product-benefits"><span class="benefit-tag">Lean Muscle</span><span class="benefit-tag">Fat Metabolism</span><span class="benefit-tag">Anti-Aging</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide HGH 191AA')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 13: HGH-FRAG -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/HGH-FRAG-Box-13-scaled.jpg" alt="HGH-FRAG" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">HGH Fragment 176-191 · Fat Loss Peptide</div>
+          <h3>HGH-FRAG</h3>
+          <p>Isolated C-terminal fragment of HGH responsible for its fat-burning effects. Accelerates lipolysis, inhibits lipogenesis & supports lean body mass without the growth-promoting effects of full HGH.</p>
+          <div class="product-benefits"><span class="benefit-tag">Lipolysis</span><span class="benefit-tag">Fat Burning</span><span class="benefit-tag">Lean Mass</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide HGH-FRAG')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 14: HGH FRAG + CJC-1295 + IPAMORELIN -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/HGH-FRAG-CJC-1295-Box-20-scaled.jpg" alt="HGH FRAG + CJC-1295 + Ipamorelin" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Fat Loss + GH Triple Stack</div>
+          <h3>HGH FRAG + CJC-1295 + IPAMORELIN</h3>
+          <p>Elite fat-loss stack combining HGH Fragment 176-191, CJC-1295 & Ipamorelin. Targets fat burning while simultaneously boosting GH secretion for lean muscle preservation.</p>
+          <div class="product-benefits"><span class="benefit-tag">Fat Burning</span><span class="benefit-tag">GH Boost</span><span class="benefit-tag">Lean Preservation</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide HGH FRAG + CJC-1295 + Ipamorelin')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 15: IGF-1 LR3 -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/IGF-1-Box-1-scaled.jpg" alt="IGF-1 LR3" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Insulin-like Growth Factor-1 · Long R3 Variant</div>
+          <h3>IGF-1 LR3</h3>
+          <p>Long-chain analogue of IGF-1 with extended half-life. Promotes hyperplasia (new muscle cell growth), enhanced nutrient uptake & accelerated recovery. Extremely anabolic research peptide.</p>
+          <div class="product-benefits"><span class="benefit-tag">Hyperplasia</span><span class="benefit-tag">Anabolic</span><span class="benefit-tag">Recovery</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide IGF-1 LR3')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 16: IPAMORELIN -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/IPAMORELIN-Box-7-scaled.jpg" alt="Ipamorelin" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Selective GH Secretagogue · GHRP</div>
+          <h3>IPAMORELIN</h3>
+          <p>Highly selective growth hormone releasing peptide. Stimulates GH secretion with minimal cortisol & prolactin side effects. Often stacked with CJC-1295 for synergistic GH release.</p>
+          <div class="product-benefits"><span class="benefit-tag">GH Secretagogue</span><span class="benefit-tag">Anti-Aging</span><span class="benefit-tag">Recovery</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide Ipamorelin')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 17: MOD GRF (1-29) -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/MOD-GRF-Box-10-scaled.jpg" alt="MOD GRF 1-29" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Mod GRF 1-29 · CJC-1295 without DAC · Short-Acting</div>
+          <h3>MOD GRF (1-29)</h3>
+          <p>Short half-life for pulsatile GH release research. Ideal paired with GHRP-2, GHRP-6 or Ipamorelin. Used in anti-aging, muscle growth & fat metabolism studies.</p>
+          <div class="product-benefits"><span class="benefit-tag">GH Pulse</span><span class="benefit-tag">Anti-Aging</span><span class="benefit-tag">Muscle Growth</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide MOD GRF 1-29')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 18: MOTS-c -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2026/02/MOTS-c-scaled.jpg" alt="MOTS-c" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Mitochondrial-Derived Peptide · Metabolic Regulator</div>
+          <h3>MOTS-C</h3>
+          <p>Mitochondrial-derived peptide that regulates metabolic homeostasis. Studied for enhancing insulin sensitivity, improving exercise capacity & reducing age-related metabolic decline.</p>
+          <div class="product-benefits"><span class="benefit-tag">Metabolic Health</span><span class="benefit-tag">Insulin Sensitivity</span><span class="benefit-tag">Anti-Aging</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide MOTS-c')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 19: PGCL -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/PGCL-Box-15-scaled.jpg" alt="PGCL" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
         </div>
         <div class="product-body">
           <div class="product-sub">Pregnenolone Glucuronide · Hormonal Research</div>
           <h3>PGCL</h3>
-          <p>High-quality peptide for hormonal regulation research. Used in studies on hormonal balance &amp; its implications in various areas of health. Research grade quality.</p>
+          <p>High-quality peptide for hormonal regulation research. Used in studies on hormonal balance & its implications in various areas of health and performance. Research grade quality.</p>
           <div class="product-benefits"><span class="benefit-tag">Hormonal Balance</span><span class="benefit-tag">Research Grade</span><span class="benefit-tag">High Purity</span></div>
           <button class="btn-outline" onclick="openEnquireModal('Superior Peptide PGCL')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 20: PT-141 -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/PT-141-Box-8-1-scaled.jpg" alt="PT-141" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Bremelanotide · Melanocortin Receptor Agonist</div>
+          <h3>PT-141</h3>
+          <p>Melanocortin receptor agonist researched for sexual dysfunction in both men and women. Acts centrally in the brain to increase sexual arousal and libido without affecting blood pressure.</p>
+          <div class="product-benefits"><span class="benefit-tag">Libido</span><span class="benefit-tag">Sexual Health</span><span class="benefit-tag">Melanocortin</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide PT-141')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 21: Reta Pro -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2026/02/Reta-Pro-scaled.jpg" alt="Reta Pro" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Retatrutide · GLP-1/GIP/Glucagon Triple Agonist</div>
+          <h3>RETA PRO</h3>
+          <p>Next-generation triple receptor agonist targeting GLP-1, GIP & glucagon receptors simultaneously. Studied for superior weight loss outcomes, metabolic improvement & cardiovascular benefits.</p>
+          <div class="product-benefits"><span class="benefit-tag">Weight Loss</span><span class="benefit-tag">Metabolic</span><span class="benefit-tag">Triple Agonist</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide Reta Pro')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 22: TB-500 -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/TB-500-Box-12-scaled.jpg" alt="TB-500" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Thymosin Beta-4 · Research Peptide</div>
+          <h3>TB-500</h3>
+          <p>Accelerates recovery, promotes cell migration & enhances angiogenesis. Key research peptide for injury recovery, chronic inflammation reduction & muscle fibre repair.</p>
+          <div class="product-benefits"><span class="benefit-tag">Recovery</span><span class="benefit-tag">Cell Migration</span><span class="benefit-tag">Angiogenesis</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide TB-500')" type="button">Enquire Now</button>
+        </div>
+      </div>
+
+      <!-- SP 23: TESAMORELIN + CJC-1295 + IPAMORELIN -->
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#0a0a14;padding:8px;">
+          <img src="https://superiorpeptide.com/wp-content/uploads/2024/08/TESAMORELIN-Box-19-scaled.jpg" alt="Tesamorelin + CJC-1295 + Ipamorelin" style="object-fit:contain;width:100%;height:100%;" onerror="this.style.display='none'">
+        </div>
+        <div class="product-body">
+          <div class="product-sub">Tesamorelin + CJC-1295 + Ipamorelin · Fat Loss Stack</div>
+          <h3>TESAMORELIN + CJC-1295 + IPAMORELIN</h3>
+          <p>Potent peptide stack for fat loss, muscle definition & enhanced body composition. Tesamorelin targets visceral fat, combined with CJC-1295 & Ipamorelin for synergistic GH release.</p>
+          <div class="product-benefits"><span class="benefit-tag">Visceral Fat</span><span class="benefit-tag">Definition</span><span class="benefit-tag">Body Composition</span></div>
+          <button class="btn-outline" onclick="openEnquireModal('Superior Peptide Tesamorelin + CJC-1295 + Ipamorelin')" type="button">Enquire Now</button>
         </div>
       </div>
 
@@ -1431,7 +1709,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
   <section class="about" id="about">
     <div class="about-inner about-full">
       <div class="about-text">
-        <div class="section-tag">Our Story</div>
+        <div class="section-tag">About Us</div>
         <h2>ABOUT <br><span class="accent-text">AADYIN</span><br>PHARMA</h2>
 
         <p>We do not promote or sell products from just one company. Instead, we give the highest importance to <strong style="color:var(--accent-1)">100% Purity, Quality, Performance, and Authenticity.</strong></p>
@@ -1532,11 +1810,11 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
         </div>
         <div class="c-item glass-panel">
           <div class="c-icon">📞</div>
-          <div class="c-text"><div class="label">Phone</div><div class="val">+91 9960583760</div></div>
+          <div class="c-text"><div class="label">Phone / WhatsApp</div><div class="val">+91 9960418220</div></div>
         </div>
         <div class="c-item glass-panel">
           <div class="c-icon">📍</div>
-          <div class="c-text"><div class="label">Location</div><div class="val">Pune, Maharashtra, India</div></div>
+          <div class="c-text"><div class="label">Location</div><div class="val clickable-location" onclick="openLocationOnGoogleMaps()" style="cursor: pointer; text-decoration: underline;">Plot No D5, Sathangadu Iron and Steel Market, Manali, Chennai, Tamil Nadu, India</div></div>
         </div>
       </div>
 
@@ -1555,7 +1833,7 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
           <select id="fproduct">
             <option value="">-- Select Product --</option>
             <option>Whey Protein</option><option>Whey NitroX</option><option>Classic Whey</option>
-            <option>Devil Rush</option><option>EAAs BCAA</option><option>Other / General Enquiry</option>
+            <option>Devil Rush</option><option>EAAs BCAA</option><option>Mushroom 4D Mushroom Soup Powder</option><option>Other / General Enquiry</option>
           </select>
         </div>
         <div class="form-group">
@@ -1572,7 +1850,11 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
     <div class="footer-inner">
       <div class="f-brand">
         <a href="#home" class="logo">
-          <img src="logo.jpeg" alt="AADYIN PHARMA" style="height:52px;width:auto;border-radius:8px;object-fit:contain;">
+          <img src="images/aadyin-logo-new.png" alt="AADYIN PHARMA" class="logo-img-circle">
+          <div class="logo-text">
+            <span class="logo-name">AADYIN PHARMA</span>
+            <span class="logo-tagline">Elite Performance</span>
+          </div>
         </a>
         <p>Premium pharmaceutical-grade gym supplements and performance ingredients for serious athletes across India.</p>
       </div>
@@ -1778,6 +2060,67 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
     }, { threshold: 0.1 });
     document.querySelectorAll('.test-card').forEach((c, i) => { c.classList.add('card-hidden'); c.style.transitionDelay = `${i * 0.15}s`; testObs.observe(c); });
 
+    // ===== PRODUCT DETAIL PANEL =====
+    function openProductDetail(card) {
+      const panel = document.getElementById('product-detail-panel');
+      const img = card.querySelector('.product-img-wrap img');
+      const h3 = card.querySelector('h3');
+      const sub = card.querySelector('.product-sub');
+      const desc = card.querySelector('.product-body p');
+      const benefits = card.querySelectorAll('.benefit-tag');
+      const enquireBtn = card.querySelector('.btn-outline');
+      const isSuperior = card.closest('#brand-superior') !== null;
+      const isPuretech = card.closest('#brand-puretech') !== null;
+
+      document.getElementById('pdp-img').src = img ? img.src : '';
+      document.getElementById('pdp-img').alt = img ? img.alt : '';
+      document.getElementById('pdp-title').textContent = h3 ? h3.textContent : '';
+      document.getElementById('pdp-sub').textContent = sub ? sub.textContent : '';
+      document.getElementById('pdp-desc').textContent = desc ? desc.textContent : '';
+
+      const brand = document.getElementById('pdp-brand');
+      if (isSuperior) { brand.textContent = 'Superior Peptide'; brand.className = 'pdp-brand-tag superior'; }
+      else if (isPuretech) { brand.textContent = 'PureTech Pharma'; brand.className = 'pdp-brand-tag'; }
+      else { brand.textContent = 'OZN Supplements'; brand.className = 'pdp-brand-tag'; }
+
+      const tagsContainer = document.getElementById('pdp-tags');
+      tagsContainer.innerHTML = '';
+      benefits.forEach(b => {
+        const span = document.createElement('span');
+        span.className = 'benefit-tag';
+        span.textContent = b.textContent;
+        tagsContainer.appendChild(span);
+      });
+
+      const enquirePdp = document.getElementById('pdp-enquire-btn');
+      if (enquireBtn) {
+        const match = enquireBtn.getAttribute('onclick').match(/openEnquireModal\('(.+?)'\)/);
+        if (match) enquirePdp.setAttribute('onclick', `openEnquireModal('${match[1]}')`);
+      }
+
+      panel.className = 'open' + (isSuperior ? ' superior-panel' : '');
+      panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function closeProductDetail() {
+      document.getElementById('product-detail-panel').className = '';
+    }
+
+    // Add click listeners to all product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        if (e.target.classList.contains('btn-outline')) return;
+        openProductDetail(this);
+      });
+    });
+
+    // Mark Superior Peptide cards as AVAILABLE (fully active, no badge)
+    document.querySelectorAll('#card-container-superior .product-card').forEach(card => {
+      card.classList.remove('unavailable');
+      const overlay = card.querySelector('.unavailable-overlay');
+      if (overlay) overlay.remove();
+    });
+
     // ===== EMAIL SEND =====
     function sendEmail() {
       const name    = document.getElementById('fname').value.trim();
@@ -1824,6 +2167,14 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
       else if (brand === 'ozn') { ozn.classList.remove('hidden'); pt.classList.add('hidden'); sp.classList.add('hidden'); }
       else if (brand === 'puretech') { ozn.classList.add('hidden'); pt.classList.remove('hidden'); sp.classList.add('hidden'); }
       else if (brand === 'superior') { ozn.classList.add('hidden'); pt.classList.add('hidden'); sp.classList.remove('hidden'); }
+    }
+
+    // ===== OPEN GOOGLE MAPS FOR LOCATION =====
+    function openLocationOnGoogleMaps() {
+      const address = 'Plot No D5, Sathangadu Iron and Steel Market, Manali, Chennai, Tamil Nadu, India';
+      const encodedAddress = encodeURIComponent(address);
+      const mapsUrl = `https://www.google.com/maps/search/${encodedAddress}`;
+      window.open(mapsUrl, '_blank');
     }
 
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeEnquireModal(null, true); });
