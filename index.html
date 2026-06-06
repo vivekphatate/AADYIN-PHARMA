@@ -772,9 +772,10 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
         <a href="#products" class="btn-primary">Explore Products</a>
         <a href="mailto:info@aadyinpharma.com" class="btn-secondary" target="_blank">📧 Email Us</a>
       </div>
-      <div class="hero-stats">
-<h3 id="visitor-count">500</h3>
-<p>Visitors</p>
+      <div class="stat-item">
+    <div class="num" id="visitor-count">500+</div>
+    <div class="label">Visitors</div>
+</div>
         <div class="stat-item separator"></div>
         <div class="stat-item"><div class="num">1000+</div><div class="label">Products Sold</div></div>
         <div class="stat-item separator"></div>
@@ -2168,6 +2169,15 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
       else if (brand === 'puretech') { ozn.classList.add('hidden'); pt.classList.remove('hidden'); sp.classList.add('hidden'); }
       else if (brand === 'superior') { ozn.classList.add('hidden'); pt.classList.add('hidden'); sp.classList.remove('hidden'); }
     }
+    // counting number of visitors 
+	<script>
+fetch("https://api.countapi.xyz/hit/aadyinpharma/visits")
+.then(response => response.json())
+.then(data => {
+    document.getElementById("visitor-count").innerText =
+    data.value + "+";
+});
+</script>
 
     // ===== OPEN GOOGLE MAPS FOR LOCATION =====
     function openLocationOnGoogleMaps() {
