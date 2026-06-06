@@ -2171,14 +2171,14 @@ font-weight:900;	  /* "PRODUCTS" = green, solid, VISIBLE */
     }
     // counting number of visitors 
 	<script>
-fetch("https://api.countapi.xyz/hit/aadyinpharma/visits")
-.then(response => response.json())
-.then(data => {
-    document.getElementById("visitor-count").innerText =
-    data.value + "+";
-});
+fetch("https://api.counterapi.dev/v1/aadyinpharma/visits/up")
+  .then(r => r.json())
+  .then(data => {
+      document.getElementById("visitor-count").innerText =
+      (data.count || data.value) + "+";
+  })
+  .catch(err => console.log(err));
 </script>
-
     // ===== OPEN GOOGLE MAPS FOR LOCATION =====
     function openLocationOnGoogleMaps() {
       const address = 'Plot No D5, Sathangadu Iron and Steel Market, Manali, Chennai, Tamil Nadu, India';
